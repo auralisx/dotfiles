@@ -1,0 +1,12 @@
+font-family = "Firacode Nerd Font"
+font-size = 10
+theme = "TokyoNight"
+window-decoration = false
+confirm-close-surface = false
+command = /usr/bin/fish --login --interactive
+mouse-hide-while-typing = true
+
+keybind = ctrl+shift+/=new_split:right
+keybind = ctrl+shift+-=new_split:down
+keybind = ctrl+shift+x=close_window
+keybind = ctrl+enter=unbind

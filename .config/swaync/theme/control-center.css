@@ -1,0 +1,174 @@
+/* === Control Center Container === */
+.control-center {
+  background: var(--secondary-color);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  padding: 5px;
+}
+
+progressbar,
+progress,
+trough {
+  border-radius: var(--border-radius);
+}
+
+progressbar {
+  background-color: var(--tertiary-color);
+}
+
+/* === Notification group === */
+.notification-group-collapse-button,
+.notification-group-close-all-button {
+  background: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.notification-group-close-all-button:hover,
+.notification-group-collapse-button:hover {
+  color: var(--tertiary-color);
+  border: 1px solid var(--tertiary-color);
+}
+
+/* === Grouped Notifications === */
+.notification-group {
+  background: var(--secondary-color);
+  color: var(--primary-color);
+  border: none;
+}
+
+.notification-group:focus {
+  background: var(--secondary-color);
+}
+
+.notification-group-buttons,
+.notification-group-headers,
+.notification-group-header,
+.notification-group-icon {
+  color: var(--primary-color);
+}
+
+.notification-group-icon {
+  background: var(--secondary-color);
+}
+
+.notification-group.collapsed .notification .notification-row {
+  background: var(--secondary-color);
+}
+
+.notification-group.collapsed:hover .notification-row:not(:only-child) .notification {
+  border: 1px solid var(--tertiary-color);
+  background: var(--secondary-color);
+}
+
+.notification-group.collapsed.not-expanded {
+  opacity: 0.4;
+  background: var(--secondary-color);
+}
+
+/* === Widgets === */
+
+/* Title widget */
+.widget-title {
+  color: var(--primary-color);
+  font-size: var(--font-size);
+  margin-bottom: 10px;
+}
+
+.widget-title>button {
+  background: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: var(--border-radius);
+}
+
+.widget-title>button:hover {
+  color: var(--tertiary-color);
+  border: 1px solid var(--tertiary-color);
+}
+
+/* DND widget */
+.widget-dnd label {
+  color: var(--primary-color);
+}
+
+.widget-dnd switch {
+  color: var(--tertiary-color);
+  background: var(--secondary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: var(--border-radius);
+}
+
+.widget-dnd switch:checked {
+  background: var(--primary-color);
+}
+
+.widget-dnd switch slider {
+  background: var(--primary-color);
+  border-radius: var(--border-radius);
+  border: 2px solid var(--tertiary-color);
+}
+
+/* Mpris widget */
+.widget-mpris .widget-mpris-player .mpris-overlay button {
+  color: var(--primary-color);
+  background: var(--secondary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  margin-top: 20px;
+}
+
+.widget-mpris .widget-mpris-player .mpris-overlay button:hover {
+  /* The media player buttons (play, pause, next, etc...) */
+  color: var(--tertiary-color);
+  border: 1px solid var(--tertiary-color);
+}
+
+.widget-mpris {
+  border: 1px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--primary-color);
+  margin-bottom: 20px;
+  box-shadow: var(--primary-color) 0px 20px 20px -20px;
+}
+
+.widget-mpris,
+.widget-mpris-player,
+.widget-mpris-title,
+.widget-mpris-subtitle {
+  color: var(--primary-color);
+}
+
+/* Volume and Brightness Widget */
+.widget-volume,
+.widget-backlight {
+  padding: 0;
+  margin: 8px;
+}
+
+.per-app-volume {
+  background: var(--secondary-color);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: var(--border-radius);
+}
+
+/** Buttons Grid **/
+.widget-buttons-grid {
+  background-color: transparent;
+  border: 1px solid var(--primary-color);
+  border-radius: var(--border-radius);
+}
+
+.widget-buttons-grid>flowbox>flowboxchild>button {
+  border-radius: var(--border-radius);
+  color: var(--primary-color);
+  background: transparent;
+}
+
+.widget-buttons-grid>flowbox>flowboxchild>button:hover {
+  color: var(--tertiary-color);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--tertiary-color);
+}

@@ -1,0 +1,5 @@
+# This file contains fish universal variable definitions.
+# VERSION: 3.0
+SETUVAR --export CHROME_EXECUTABLE:/usr/bin/microsoft\x2dedge\x2ddev
+SETUVAR __fish_initialized:4300
+SETUVAR --export fish_user_paths:/home/sujan/\x2elocal/bin

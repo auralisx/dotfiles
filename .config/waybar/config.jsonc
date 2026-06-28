@@ -1,0 +1,212 @@
+{
+  "layer": "top",
+  "position": "right",
+  "spacing": 16,
+  // "margin-top": 5,
+  // "margin-bottom": 5,
+  "reload_style_on_change": true,
+  "modules-left": [
+    "custom/notification",
+    "clock",
+    "battery",
+    "backlight",
+    "wireplumber",
+    "temperature",
+    "cpu",
+    "memory",
+    "privacy",
+  ],
+  "modules-center": [
+    "niri/workspaces",
+  ],
+  "modules-right": [
+    "mpris",
+    "tray",
+    "wlr/taskbar",
+  ],
+  "cpu": {
+    "interval": 10,
+    "format": "{icon}",
+    "tooltip-format": "󰍛 {usage}% {avg_frequency}",
+    "format-icons": [
+      "󰫃",
+      "󰫄",
+      "󰫅",
+      "󰫆",
+      "󰫇",
+      "󰫈"
+    ]
+  },
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{icon}",
+    "tooltip-format": "{icon} {percent}%",
+    "format-icons": [
+      "󰃞",
+      "󰃝",
+      "󰃟",
+      "󰃠"
+    ],
+  },
+  "memory": {
+    "interval": 10,
+    "format": "{icon}",
+    "tooltip-format": " {percentage}% - {swapPercentage}%\n{used:0.1f}G/{total:0.1f}G\n{swapUsed:0.1f}G/{swapTotal:0.1f}G",
+    "tooltip": true,
+    "format-icons": [
+      "󰝦",
+      "󰪞",
+      "󰪟",
+      "󰪠",
+      "󰪡",
+      "󰪢",
+      "󰪣",
+      "󰪤",
+      "󰪥"
+    ],
+  },
+  "temperature": {
+    "critical-threshold": 80,
+    "format": "{icon}",
+    "tooltip": true,
+    "tooltip-format": "{temperatureC}°C",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+  },
+  "privacy": {
+    "icon-spacing": 4,
+    "icon-size": 14,
+    "transition-duration": 250,
+    "modules": [
+      {
+        "type": "screenshare",
+        "tooltip": true,
+        "tooltip-icon-size": 10,
+      },
+      {
+        "type": "audio-out",
+        "tooltip": true,
+        "tooltip-icon-size": 10,
+      },
+      {
+        "type": "audio-in",
+        "tooltip": true,
+        "tooltip-icon-size": 10,
+      },
+    ],
+  },
+  "clock": {
+    "format": "{:%I\n%M\n%p}",
+    "tooltip-format": "{:%A, %B %d, %Y (%I:%M %p)}",
+  },
+  "battery": {
+    //"bat": "BAT2",
+    "interval": 60,
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 20,
+    },
+    "format": "{icon}",
+    "format-charging": "",
+    "tooltip-format": "Battery: {capacity}%\n{timeTo}\nHealth: {health}\nCycles: {cycles}",
+    "format-full": "⚡",
+    "format-icons": [
+      "󰂎",
+      "󰁺",
+      "󰁻",
+      "󰁼",
+      "󰁽",
+      "󰁾",
+      "󰁿",
+      "󰂀",
+      "󰂁",
+      "󰂂",
+      "󰁹"
+    ],
+  },
+  "wireplumber": {
+    "format": "{icon}",
+    "tooltip": true,
+    "tooltip-format": "{icon} {volume}%\n{node_name} {format_source}",
+    "format-muted": "",
+    "format-icons": [
+      "",
+      "",
+      ""
+    ],
+    "scroll-step": 0.2,
+    "max-volume": 100,
+    "on-click": "pavucontrol",
+    "on-click-right": "qpwgraph",
+  },
+  "niri/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      // Named workspaces
+      "dev": "󰚗",
+      "web": "",
+      "entertainment": "",
+      // Icons by state
+      // "active": ""
+      "default": ""
+    },
+  },
+  "wlr/taskbar": {
+    "format": "{icon}",
+    "icon-size": 12,
+    "icon-theme": "BeautyLine",
+    "tooltip-format": "{title}",
+    "on-click": "activate",
+    "on-click-middle": "close",
+  },
+  "mpris": {
+    "format": "{player_icon} {dynamic}",
+    "format-paused": "{status_icon} <i>{dynamic}</i>",
+    "max-length": 30,
+    "rotate": 90,
+    "player-icons": {
+      "default": "󰎆 ",
+      "cmus": "",
+      "mpv": "🎵",
+      "vlc": "🎬",
+      "spotify": " ",
+    },
+    "status-icons": {
+      "paused": "⏸",
+    },
+    "on-click": "playerctl play-pause",
+    "on-click-right": "playerctl next",
+    "smooth-scrolling-threshold": 10,
+    "on-scroll-down": "playerctl previous",
+  },
+  "tray": {
+    "icon-size": 14,
+    "spacing": 10,
+  },
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{}\n{icon}",
+    "format-icons": {
+      "notification": "<span foreground='red'><sup></sup></span>",
+      "none": "",
+      "dnd-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-none": "",
+      "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-inhibited-none": "",
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true,
+  },
+}

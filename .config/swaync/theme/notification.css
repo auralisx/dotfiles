@@ -1,0 +1,103 @@
+/* === General Notification Row === */
+
+.notification .notification-background .notification-row {
+  background: var(--secondary-color);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: var(--border-radius);
+}
+
+/* === Notification Content Text === */
+.summary {
+  font-size: var(--font-size);
+  font-weight: bold;
+  color: var(--tertiary-color);
+  padding: 5px;
+}
+
+.time {
+  font-size: var(--font-size);
+  font-weight: semi-bold;
+  color: var(--tertiary-color);
+  margin-right: 35px;
+  margin-top: 5px;
+}
+
+.body {
+  font-size: var(--font-size);
+  color: var(--primary-color);
+  font-weight: normal;
+  padding: 5px;
+}
+
+/* === Notification Actions === */
+.notification-default-action {
+  background: var(--secondary-color);
+  color: var(--primary-color);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--primary-color);
+}
+
+.notification-action {
+  background: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+.notification-row .notification-background .notification .notification-alt-actions {
+  background: var(--secondary-color);
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  border: 1px solid var(--primary-color);
+  border-top: 0px;
+}
+
+.notification-row .notification-background .notification .notification-action>button {
+  border-radius: var(--border-radius);
+  background: var(--secondary-color);
+  color: var(--primary-color);
+  /* border: 1px solid var(--primary-color); */
+}
+
+.notification .notification-default-action:hover,
+.notification .notification-action:hover,
+.notification .notification-alt-actions:hover {
+  color: var(--tertiary-color);
+  border: 1px solid var(--tertiary-color);
+  background: var(--secondary-color);
+}
+
+/* === Inline Reply Section === */
+.inline-reply-entry {
+  background: var(--secondary-color);
+  color: var(--primary-color);
+  caret-color: var(--tertiary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: var(--border-radius);
+}
+
+.inline-reply-button {
+  background: var(--secondary-color);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: var(--border-radius);
+}
+
+.inline-reply-button:hover {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  border: 1px solid var(--tertiary-color);
+}
+
+/* Priority-based notification styles */
+
+/* .notification-row .notification-background .notification.normal {
+  border-left: 3px solid var(--tertiary-color);
+} */
+
+.notification-row .notification-background .notification.critical {
+  border: 1px solid var(--warning-color);
+}
+
+.notification.critical {
+  color: var(--warning-color);
+}

@@ -1,0 +1,285 @@
+/* Global Styles */
+* {
+  font-family: FiraCode Nerd Font;
+  font-weight: 600;
+  font-size: 0.8rem;
+  padding: 0.1rem;
+}
+
+/* Module Styles */
+.module {
+  padding: 0 0.8rem;
+  color: rgba(180, 249, 248, 1);
+}
+
+.modules-left,
+.modules-right,
+.modules-center {
+  border-radius: 0.4rem;
+  background: @theme_base_color;
+}
+
+window#waybar.top .modules-center {
+  background: transparent;
+}
+
+window#waybar.bottom .modules-center {
+  background: transparent;
+}
+
+.modules-left {
+  margin-left: 3px;
+}
+
+.modules-right {
+  margin-right: 4px;
+}
+
+/* Window Styling */
+window#waybar {
+  background: transparent;
+  transition: background 0.5s;
+}
+
+/* Make window module transparent when no windows present */
+window#waybar.empty #window {
+  background: transparent;
+  background-color: transparent;
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+/* Button Styling */
+button {
+  /* Use box-shadow instead of border so the text isn't offset */
+  box-shadow: inset 0 -3px transparent;
+  /* Avoid rounded borders under each button name */
+  border: none;
+  background: transparent;
+}
+
+button:hover {
+  color: rgb(250, 139, 255);
+}
+
+/* Workspaces Button Styling */
+#workspaces button {
+  color: #b4f9f8;
+  background: transparent;
+  font-weight: bolder;
+  box-shadow: inset 0 -3px transparent;
+  transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+  padding: 0 5px;
+}
+
+#workspaces button.active {
+  color: #ff9e64;
+  border-bottom: 2px solid transparent;
+  border-image: linear-gradient(45deg, rgb(250, 139, 255), rgb(0, 238, 255)) 1;
+  padding: 0 10px;
+}
+
+#workspaces button.current_output {
+  background-color: transparent;
+}
+
+#workspaces button.focused {
+  color: rgb(250, 139, 255);
+}
+
+#workspaces button.urgent {
+  color: red;
+}
+
+#workspaces button:hover {
+  color: #ff9e64;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left>widget:first-child>#workspaces {
+  margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right>widget:last-child>#workspaces {
+  margin-right: 0;
+}
+
+/* Taskbar Button Styling */
+#taskbar {
+  background: @theme_base_color;
+  border-radius: 0.4rem;
+  padding: 0 0.8rem;
+}
+
+#taskbar button {
+  padding: 0 0.8rem;
+}
+
+#taskbar button.active {
+  color: rgba(180, 249, 248, 1);
+  border-bottom: 2px solid transparent;
+  border-image: linear-gradient(45deg, rgb(250, 139, 255), rgb(0, 238, 255)) 1;
+}
+
+/* Transparent Modules When Empty */
+#taskbar.empty {
+  background: transparent;
+}
+
+/* Tooltip styling */
+menu,
+tooltip {
+  border-radius: 0.4rem;
+  padding: 0.2rem;
+}
+
+menu label,
+tooltip label {
+  color: white;
+  padding: 0.4rem;
+}
+
+/* Module State Styles */
+#network.disconnected,
+#wireplumber.muted,
+#temperature.critical {
+  color: red;
+}
+
+#battery.charging,
+#battery.plugged {
+  color: rgb(250, 139, 255);
+  font-weight: 900;
+  background: @theme_base_color;
+}
+
+@keyframes blink {
+  to {
+    background-color: @theme_base_color;
+    color: red;
+  }
+}
+
+#battery.warning:not(.charging),
+#battery.critical:not(.charging) {
+  animation: blink 1s linear infinite alternate;
+  border-radius: 0.4rem;
+  margin-left: 0.5rem;
+}
+
+/* Focused Label Background */
+label:focus {
+  background-color: @theme_base_color;
+}
+
+/* Tray Styles */
+#tray>.passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray>.needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: red;
+}
+
+/* Gradient Module Styles */
+#mpris,
+#window {
+  background: linear-gradient(45deg,
+      rgb(250, 139, 255) 0%,
+      rgb(0, 238, 255) 52%,
+      rgb(250, 139, 255) 90%);
+  color: black;
+  font-weight: 900;
+}
+
+#window,
+#mpris {
+  border-radius: 0.4rem;
+}
+
+#privacy {
+  padding: 0;
+}
+
+#privacy-item {
+  padding: 0 5px;
+  color: rgb(250, 139, 255);
+}
+
+#privacy-item.screenshare {
+  color: #ff9e64;
+}
+
+#privacy-item.audio-in {
+  color: #73daca;
+}
+
+#privacy-item.audio-out {
+  color: #bb9af7;
+}
+
+#bluetooth.disabled,
+#bluetooth.off {
+  color: @warning_color;
+}
+
+#bluetooth.on,
+#bluetooth.connected {
+  color: @success_color;
+}
+
+#cpu {
+  color: #f7768e;
+}
+
+#battery {
+  color: #73daca;
+}
+
+#wireplumber {
+  color: #b4f9f8;
+}
+
+#backlight {
+  color: #e0af68;
+}
+
+#memory {
+  color: #bb9af7;
+}
+
+#temperature {
+  color: #7aa2f7;
+}
+
+#network {
+  color: #ff9e64;
+}
+
+#clock {
+  color: #b4f9f8;
+}
+
+#custom-updates {
+  color: #cfc9c2;
+}
+
+#custom-power {
+  color: red;
+}
+
+#custom-quit {
+  color: #7dcfff;
+}
+
+#custom-lock {
+  color: #ff9e64;
+}
+
+#custom-reboot {
+  color: #c0caf5;
+}

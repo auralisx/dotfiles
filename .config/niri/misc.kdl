@@ -1,0 +1,57 @@
+environment {
+    GTK_THEME "Sweet:dark"
+
+    QT_QPA_PLATFORM "wayland"
+    QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
+    QT_QPA_PLATFORMTHEME "qt5ct"
+    QT_QPA_PLATFORMTHEME "qt6ct"
+
+    MOZ_ENABLE_WAYLAND "1"
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+
+    XDG_SESSION_TYPE "wayland"
+    XDG_CURRENT_DESKTOP "niri"
+    XDG_SESSION_DESKTOP "niri"
+}
+
+gestures {
+    hot-corners {
+        off
+        // top-left
+        // top-right
+        // bottom-left
+        // bottom-right
+    }
+}
+
+prefer-no-csd
+
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+cursor {
+    hide-when-typing
+    hide-after-inactive-ms 5000
+}
+
+overview {
+    zoom 0.3
+    backdrop-color "#24283b"
+
+    workspace-shadow {
+        off
+        softness 40
+        spread 10
+        offset x=0 y=10
+        color "#00000050"
+    }
+}
+
+xwayland-satellite {
+    // off
+    path "xwayland-satellite"
+}
+
+hotkey-overlay {
+    skip-at-startup
+    hide-not-bound
+}

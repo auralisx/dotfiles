@@ -1,0 +1,213 @@
+include "input.kdl"
+include "layout.kdl"
+include "rules.kdl"
+include "recent-windows.kdl"
+include "misc.kdl"
+include "animations.kdl"
+
+binds {
+    // Most actions that you can bind here can also be invoked programmatically with
+    // `niri msg action do-something`.
+    Mod+Shift+Slash { show-hotkey-overlay; }
+
+    Mod+Shift+Ctrl+Q hotkey-overlay-title="<b>Niri: </b> Quit Niri" { quit skip-confirmation=true; }
+    Mod+Space hotkey-overlay-title="<b>Niri: </b> Toggle Overview" repeat=false { toggle-overview; }
+    Mod+Shift+Ctrl+M hotkey-overlay-title="<b>Niri: </b> Power Off Monitors" { power-off-monitors; }
+    Mod+Q hotkey-overlay-title="<b>Niri: </b> Close Window" repeat=false { close-window; }
+
+    Mod+Shift+Ctrl+R hotkey-overlay-title="<b>System: </b> Reboot" repeat=false { spawn "systemctl" "reboot"; }
+    Mod+Shift+Ctrl+X hotkey-overlay-title="<b>System: </b> Shutdown" repeat=false { spawn "systemctl" "poweroff" "-i"; }
+    Mod+Shift+Ctrl+B hotkey-overlay-title="<b>System: </b> Toggle Waybar" repeat=false { spawn "pkill" "-USR1" "waybar"; }
+
+    // Screenshot
+    Print hotkey-overlay-title="<b>Screenshot: </b> Region" { screenshot; }
+    Shift+Print hotkey-overlay-title="<b>Screenshot: </b> Screen" { screenshot-screen; }
+    Ctrl+Print hotkey-overlay-title="<b>Screenshot: </b> Window" { screenshot-window; }
+    // Mod+Print allow-when-locked=true hotkey-overlay-title="<b>Screenshot With Annotation: </b> Region" { spawn "fish" "-c" "grim -g \"$(slurp -c '#bb9af7')\" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/satty-$(date '+%Y%m%d-%H:%M:%S').png"; }
+    // Mod+Shift+Print hotkey-overlay-title="<b>Screenshot With Annotation: </b> Screen" { spawn "fish" "-c" "grim -g \"$(slurp -o -r -c '#bb9af7')\" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/satty-$(date '+%Y%m%d-%H:%M:%S').png"; }
+    Mod+Print hotkey-overlay-title="<b>Annotate Recent Screenshot</b>" {
+      spawn-sh "
+          file=$(ls -t ~/Pictures/Screenshots/*.png | head -n 1) &&
+          [ -n \"$file\" ] &&
+          satty --filename \"$file\"
+      ";
+    }
+    Mod+Alt+Print hotkey-overlay-title="<b>Select Screenshot to Annotate</b>" {
+      spawn-sh "
+          FILE=$(ls -t ~/Pictures/Screenshots/*.png | fuzzel --dmenu --prompt='Select to Annotate: ' --lines=15 --width=80) &&
+          [ -n \"$FILE\" ] && satty --filename \"$FILE\"
+      ";
+    }
+
+    Mod+Alt+W hotkey-overlay-title="<b>Wallpaper: Random</b>" {
+      spawn-sh "
+        file=$(ls ~/Pictures/wallpapers | shuf -n 1) &&
+        [ -n \"$file\" ] &&
+        awww img  -o eDP-1 ~/Pictures/wallpapers/$file --transition-type random
+        ";
+    }
+
+    Mod+Alt+1 hotkey-overlay-title="<b>Wallpaper: </b>Laptop Monitor" {
+      spawn-sh "
+        file=$(ls ~/Pictures/wallpapers | fuzzel --dmenu -p 'Wallpaper For Monitor DP-1: ' --width=60) &&
+        [ -n \"$file\" ] &&
+        awww img  -o eDP-1 ~/Pictures/wallpapers/$file --transition-type random
+        ";
+    }
+
+    Mod+ALt+2 hotkey-overlay-title="<b>Wallpaper: </b>Secondary Monitor" {
+      spawn-sh "
+        file=$(ls ~/Pictures/wallpapers | fuzzel --dmenu -p 'Wallpaper For Monitor HDMI-A-1: ' --width=60) &&
+        [ -n \"$file\" ] &&
+        awww img -o HDMI-A-1 ~/Pictures/wallpapers/$file --transition-type random
+        ";
+    }
+
+    // Primary Applications
+    Mod+Return hotkey-overlay-title="<b>Open a Terminal: </b> Ghostty" {spawn "ghostty"; }
+    Mod+Semicolon hotkey-overlay-title="<b>Run an Application: </b> Fuzzel" { spawn "fuzzel"; }
+    Mod+Shift+Ctrl+L hotkey-overlay-title="<b>Lock Screen: </b> Hyprlock" allow-when-locked=true { spawn "hyprlock"; }
+    Mod+Z { spawn "zeditor"; }
+
+    Mod+Alt+D hotkey-overlay-title="<b>Edit Dotfiles: </b> ~/dotfiles/" { spawn-sh "zeditor ~/dotfiles/"; }
+    Mod+Alt+Menu hotkey-overlay-title="<b>Launch Project:</b> Zeditor" {
+        spawn-sh "
+            project=$(fd -d 1 --type d . ~/Dev | fuzzel --dmenu --prompt='Open Project: ' --lines=15 --width=60) &&
+            [ -n \"$project\" ] &&
+            zeditor \"$project\"
+        ";
+    }
+
+    Mod+B { spawn "firefox-developer-edition"; }
+    Mod+Alt+B { spawn "vivaldi"; }
+    Mod+Alt+E { spawn "nautilus"; }
+    Mod+Menu { spawn "copyq" "toggle"; }
+    Mod+Alt+P { spawn "hyprpicker" "-a"; }
+    Mod+Alt+Y { spawn "chromium"; }
+
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+1%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "1%-"; }
+    Mod+XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "100%"; }
+    Mod+XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "1%"; }
+
+    // Example media keys mapping using playerctl.
+    // This will work with any MPRIS-enabled media player.
+    XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
+    XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
+    XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
+    XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
+
+    Mod+H     { focus-column-left; }
+    Mod+J     { focus-window-or-workspace-down; }
+    Mod+K     { focus-window-or-workspace-up; }
+    Mod+L     { focus-column-right; }
+    Mod+WheelScrollDown            cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp              cooldown-ms=150 { focus-workspace-up; }
+
+    Mod+Shift+H     { move-column-left-or-to-monitor-left; }
+    Mod+Shift+J     { move-window-down-or-to-workspace-down; }
+    Mod+Shift+K     { move-window-up-or-to-workspace-up; }
+    Mod+Shift+L     { move-column-right-or-to-monitor-right; }
+    Mod+Ctrl+WheelScrollDown       cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+Ctrl+WheelScrollUp         cooldown-ms=150 { move-column-to-workspace-up; }
+
+    Mod+Home { focus-column-first; }
+    Mod+End  { focus-column-last; }
+    Mod+Shift+Home { move-column-to-first; }
+    Mod+Shift+End  { move-column-to-last; }
+
+    Mod+Left  { focus-monitor-left; }
+    Mod+Right    { focus-monitor-right; }
+
+    Mod+Shift+Left  { move-window-to-monitor-left; }
+    Mod+Shift+Right { move-window-to-monitor-right; }
+
+    Mod+Ctrl+Left  { move-column-to-monitor-left; }
+    Mod+Ctrl+Right { move-column-to-monitor-right; }
+
+    // And you can also move a whole workspace to another monitor:
+    Mod+Shift+Ctrl+Left  { move-workspace-to-monitor-left; }
+    Mod+Shift+Ctrl+Right  { move-workspace-to-monitor-right; }
+
+    Mod+Shift+WheelScrollDown      { focus-column-right; }
+    Mod+Shift+WheelScrollUp        { focus-column-left; }
+    Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
+    Mod+Ctrl+Shift+WheelScrollUp   { move-column-left; }
+
+    // The following binds move the focused window in and out of a column.
+    // If the window is alone, they will consume it into the nearby column to the side.
+    // If the window is already in a column, they will expel it out.
+    Mod+Comma  { consume-or-expel-window-left; }
+    Mod+Period { consume-or-expel-window-right; }
+
+    Mod+R { switch-preset-column-width; }
+    Mod+Shift+R { switch-preset-window-height; }
+    Mod+Ctrl+R { reset-window-height; }
+    Mod+M { maximize-column; }
+    Mod+Shift+M { fullscreen-window; }
+    Mod+Alt+M { toggle-windowed-fullscreen; }
+    Mod+Ctrl+F { expand-column-to-available-width; }
+
+    // Move the focused window between the floating and the tiling layout.
+    Mod+F       { toggle-window-floating; }
+    Mod+Shift+F { switch-focus-between-floating-and-tiling; }
+
+    // Toggle tabbed column display mode.
+    // Windows in this column will appear as vertical tabs,
+    // rather than stacked on top of each other.
+    Mod+T { toggle-column-tabbed-display; }
+
+    // Mod+C { center-column; }
+
+    // Center all fully visible columns on screen.
+    // Mod+Ctrl+E { center-visible-columns; }
+
+    // Alternatively, there are commands to move just a single window:
+    // Mod+Shift+Ctrl+Left  { move-window-to-monitor-left; }
+
+    // And you can also move a whole workspace to another monitor:
+    // Mod+Shift+Ctrl+Left  { move-workspace-to-monitor-left; }
+
+
+    // Alternatively, there are commands to move just a single window:
+    // Mod+Ctrl+Page_Down { move-window-to-workspace-down; }
+
+    Mod+Up          { move-workspace-up; }
+    Mod+Down        { move-workspace-down; }
+
+    Mod+Minus { set-column-width "-10%"; }
+    Mod+Equal { set-column-width "+10%"; }
+
+    // Finer height adjustments when in column with other windows.
+    Mod+Shift+Minus { set-window-height "-10%"; }
+    Mod+Shift+Equal { set-window-height "+10%"; }
+
+    Mod+D { focus-workspace "dev"; }
+    Mod+W { focus-workspace "web"; }
+    Mod+E { focus-workspace "entertainment"; }
+
+    Mod+Shift+D { move-window-to-workspace "dev"; }
+    Mod+Shift+W { move-window-to-workspace "web"; }
+    Mod+Shift+E { move-window-to-workspace "entertainment"; }
+
+    Mod+Ctrl+D { move-column-to-workspace "dev"; }
+    Mod+Ctrl+W { move-column-to-workspace "web"; }
+    Mod+Ctrl+E { move-column-to-workspace "entertainment"; }
+
+
+    // Applications such as remote-desktop clients and software KVM switches may
+    // request that niri stops processing the keyboard shortcuts defined here
+    // so they may, for example, forward the key presses as-is to a remote machine.
+    // It's a good idea to bind an escape hatch to toggle the inhibitor,
+    // so a buggy application can't hold your session hostage.
+    //
+    // The allow-inhibiting=false property can be applied to other binds as well,
+    // which ensures niri always processes them, even when an inhibitor is active.
+    Mod+Shift+Ctrl+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+
+}

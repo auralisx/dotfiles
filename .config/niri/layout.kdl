@@ -1,0 +1,78 @@
+layout {
+    background-color "#24283b"
+    gaps 1
+    center-focused-column "never"
+    always-center-single-column
+    empty-workspace-above-first
+    default-column-display "normal"
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+
+        // fixed 1920
+    }
+
+    tab-indicator {
+        on
+        hide-when-single-tab
+        place-within-column
+        width 2
+        gap 5
+        length total-proportion=0.25
+        position "right"
+        gaps-between-tabs 5
+        active-color "#bb9af7"
+        inactive-color "#f7768e"
+        urgent-color "red"
+    }
+
+    default-column-width { proportion 0.5; }
+
+    // `draw-border-with-background`.
+
+    focus-ring {
+        off
+        width 1
+        // active-color "#7fc8ff"
+        inactive-color "rgb(86, 95, 137)"
+        active-gradient from="rgb(0,238,255)" to="rgb(250,139,255)" angle=45
+        // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
+    }
+
+    border {
+        // The settings are the same as for the focus ring.
+        // If you enable the border, you probably want to disable the focus ring.
+        // off
+        on
+        width 1
+        inactive-color "rgb(86, 95, 137)"
+        active-gradient from="rgb(0,238,255)" to="rgb(250,139,255)" angle=45 relative-to="workspace-view" in="oklch longer hue"
+        // active-color "#ffc87f"
+        urgent-color "#9b0000"
+        // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
+    }
+
+    insert-hint {
+        // off
+        color "#a9b1d6"
+        gradient from="rgb(0,238,255)" to="rgb(250,139,255)" angle=45 relative-to="workspace-view"
+    }
+
+    shadow {
+        // on
+        // draw-behind-window true
+        softness 30
+        spread 5
+        offset x=0 y=5
+        color "#0007"
+    }
+
+    struts {
+        // left 64
+        // right 64
+        // top 64
+        // bottom 64
+    }
+}
