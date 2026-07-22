@@ -35,7 +35,8 @@
       "󰫆",
       "󰫇",
       "󰫈"
-    ]
+    ],
+    "on-click": "ghostty -e btm",
   },
   "backlight": {
     "device": "intel_backlight",
@@ -64,6 +65,7 @@
       "󰪤",
       "󰪥"
     ],
+    "on-click": "ghostty -e btm",
   },
   "temperature": {
     "critical-threshold": 80,
