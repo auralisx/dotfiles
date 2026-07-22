@@ -1,7 +1,5 @@
 -- Copy, cut, paste using system clipboard
 vim.keymap.set({ "n", "x" }, "<C-c>", '"+y', { desc = "Copy to clipboard", noremap = true })
-vim.keymap.set({ "n" }, "<A-v>", '"+p', { desc = "Paste from clipboard", noremap = true })
-vim.keymap.set({ "x" }, "<A-v>", '"+P', { desc = "Paste from clipboard", noremap = true })
 vim.keymap.set({ "n", "x" }, "gy", '"+y', { desc = "Copy to clipboard", noremap = true })
 vim.keymap.set({ "n" }, "gp", '"+p', { desc = "Paste from clipboard", noremap = true })
 vim.keymap.set({ "x" }, "gp", '"+P', { desc = "Paste from clipboard", noremap = true })
