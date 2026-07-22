@@ -36,7 +36,6 @@ function M.setup_hl()
 	end
 end
 
-
 function M.hl(group, text)
 	if not text or text == "" then
 		return ""
