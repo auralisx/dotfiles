@@ -1,39 +1,59 @@
-# My Dotfiles (Arch Linux)
+# Dotfiles
 
-This repository contains my **personal dotfiles** for configuring a minimal, beautiful, and functional desktop environment on **Arch Linux**.
+My personal Linux desktop configuration for Arch Linux.
 
-> [!CAUTION]
-> The install script available in this repo is experimental and intended for personal use only. Do not use it.
+The repository contains configuration files for my Wayland desktop, terminal, editor, shell, and development tools. It is primarily intended for restoring my setup on a fresh Arch installation.
 
-| Flag         | Action                                    |
-| ------------ | ----------------------------------------- |
-| `--packages` | Install Pacman packages                   |
-| `--aur`      | Install AUR packages (auto installs paru) |
-| `--dotfiles` | Setup dotfiles + backup                   |
-| `--services` | Enable & start system services            |
-| `--all`      | Run everything                            |
+## Components
 
-Example:
+### Desktop
+
+* Niri
+* Hyprlock
+* Hypridle
+* Waybar
+* Sway Notification Center (swaync)
+* Fuzzel
+* Ghostty
+* GTK themes (`.themes`)
+
+### User Services
+
+Custom `systemd --user` services for:
+
+* Waybar
+* NetworkManager applet
+* Bluetooth applet
+* Polkit agent
+* Udiskie
+* Wallpaper daemon (`awww`)
+
+### Miscellaneous
+
+* Electron/Chromium flags
+* CopyQ configuration
+* User shell configuration (`.bashrc`)
+
+## Installation
+
+Clone the repository into your home directory:
+
 ```bash
-./install.sh --all
+git clone <repository-url> ~/dotfiles
 ```
 
-Use only together with `--all`
+Run the installation script:
 
-| Flag            | Effect               |
-| --------------- | -------------------- |
-| `--no-packages` | Skip pacman packages |
-| `--no-aur`      | Skip AUR packages    |
-| `--no-dotfiles` | Skip dotfiles        |
-| `--no-services` | Skip services        |
-
-Example:
 ```bash
-./install.sh --all --no-aur --no-services
+cd ~/dotfiles
+./install.sh
 ```
 
-> [!IMPORTANT]
-> These dotfiles are part of my personal setup journey. Things may break or not work out of the box.
+The script installs the required packages, creates backups of existing configuration files, links the dotfiles into place, and enables the required services.
 
----
+## Notes
 
+* Designed for Arch Linux.
+* Intended for personal use.
+* Package installation is handled by `pacman` and `paru`.
+* Development tooling managed by Nix, Cargo, and npm.
