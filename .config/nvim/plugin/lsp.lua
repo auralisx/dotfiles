@@ -17,6 +17,12 @@ vim.schedule(function()
 			"css-lsp",
 			"biome",
 			"prettierd",
+			"ruff",
+			"ty",
+			"kdlfmt",
+			"markdown-oxide",
+			"bash-language-server",
+			"shfmt",
 		},
 	})
 end)

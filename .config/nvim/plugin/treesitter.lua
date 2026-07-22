@@ -27,9 +27,9 @@ require("nvim-treesitter").install({
 	"json",
 	"lua",
 	"markdown",
+	"markdown_inline",
 	"typescript",
 	"rust",
 	"php",
-	"markdown",
 })
 require("nvim-ts-autotag").setup()
