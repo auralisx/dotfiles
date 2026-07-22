@@ -58,7 +58,7 @@ o.foldenable = true -- Enable code folding
 o.foldlevel = 99 -- Default fold level
 o.foldlevelstart = 99 -- Fold level when opening a file
 o.foldmethod = "expr" -- Use expression to determine folds
-o.foldexpr = "nvim_treesitter#foldexpr()" -- Use Treesitter for folding
+o.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- Use Treesitter for folding
 o.foldtext = "" -- Use default fold line display
 
 -- -----------------------------------------------------------------------------
