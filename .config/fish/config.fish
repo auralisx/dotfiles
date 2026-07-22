@@ -78,6 +78,33 @@ function cleanup --description 'Remove orphaned packages'
     sudo pacman -Rns (pacman -Qtdq)
 end
 
+function update-all --description "Update every package manager"
+
+    echo
+    echo "==> Pacman"
+    sudo-rs pacman -Syu
+
+    echo
+    echo "==> AUR"
+    paru -Sua
+
+    echo
+    echo "==> Rust toolchain"
+    rustup update
+
+    echo
+    echo "==> Cargo packages"
+    cargo install-update -a
+
+    echo
+    echo "==> Yazi plugins"
+    ya pkg upgrade
+
+    echo
+    echo "Done."
+
+end
+
 alias unlock='sudo rm /var/lib/pacman/db.lck'    # remove pacman lock
 
 # Color output of ip
