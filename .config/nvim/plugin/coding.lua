@@ -1,11 +1,12 @@
+vim.pack.add({
+	"https://github.com/nvim-mini/mini.ai",
+	"https://github.com/nvim-mini/mini.align",
+	"https://github.com/nvim-mini/mini.pairs",
+	"https://github.com/nvim-mini/mini.surround",
+	"https://github.com/folke/flash.nvim",
+})
+
 vim.schedule(function()
-	vim.pack.add({
-		"https://github.com/nvim-mini/mini.ai",
-		"https://github.com/nvim-mini/mini.align",
-		"https://github.com/nvim-mini/mini.pairs",
-		"https://github.com/nvim-mini/mini.surround",
-		"https://github.com/folke/flash.nvim",
-	})
 	require("mini.ai").setup()
 	require("mini.align").setup()
 	require("mini.pairs").setup({

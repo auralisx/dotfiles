@@ -1,6 +1,6 @@
-vim.schedule(function()
-	vim.pack.add({ "https://github.com/stevearc/conform.nvim" })
+vim.pack.add({ "https://github.com/stevearc/conform.nvim" })
 
+vim.schedule(function()
 	require("conform").setup({
 		formatters_by_ft = {
 			lua = { "stylua" },
@@ -22,7 +22,6 @@ vim.schedule(function()
 			typescriptreact = { "biome", "prettierd" },
 			blade = { "blade_formatter" },
 			php = { "php_cs_fixer" },
-			kdl = { "kdlfmt" },
 			sh = { "shfmt" },
 		},
 		format_on_save = {

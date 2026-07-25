@@ -31,5 +31,7 @@ require("nvim-treesitter").install({
 	"typescript",
 	"rust",
 	"php",
+	"http",
+	"graphql",
 })
 require("nvim-ts-autotag").setup()
