@@ -28,11 +28,11 @@ PACMAN_PACKAGES=(
   firefox-developer-edition vivaldi chromium
 
   # Dev
-  neovim zed tree-sitter-cli opencode npm nix rustup
+  neovim zed tree-sitter-cli opencode npm pnpm nix rustup
 
   # Terminal and Shell
-  ghostty sudo-rs fish exa fzf ripgrep zoxide starship lazygit zellij bat bottom ast-grep
-  yazi 7zip jq resvg fd imagemagick poppler
+  ghostty sudo-rs fish eza fzf ripgrep zoxide starship lazygit zellij bat bottom ast-grep
+  yazi jq resvg fd imagemagick poppler ouch
 
   # System
   snapper btrfs-assistant snap-pac
