@@ -25,6 +25,10 @@
       "rev": "c995bbacf8229dc096ec1c3d60f8531059c86c1b",
       "src": "https://github.com/MagicDuck/grug-far.nvim"
     },
+    "kulala.nvim": {
+      "rev": "5c2234e1a0ae8a95911231682c52be2a13fcc117",
+      "src": "https://github.com/mistweaverco/kulala.nvim"
+    },
     "mason-lspconfig.nvim": {
       "rev": "0a3b42c3e503df87aef6d6513e13148381495c3a",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
