@@ -70,8 +70,8 @@
           "command": "blueman-manager"
         },
         {
-          "label": "󰸉",
-          "command": "waypaper"
+          "label": "",
+          "command": "ghostty -e btm"
         },
         {
           "label": "",
