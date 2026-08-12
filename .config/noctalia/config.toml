@@ -14,6 +14,9 @@ hidden_tabs = [ "weather" ]
 sidebar = "full"
 sidebar_section = "full"
 
+    [control_center.calendar]
+    show_events_card = false
+
 [desktop_widgets]
 schema_version = 2
 widget_order = []
@@ -33,8 +36,9 @@ widget_order = [
     "lockscreen-login-box@eDP-1",
     "lockscreen-widget-0000000000000001",
     "lockscreen-widget-0000000000000002",
-    "lockscreen-widget-0000000000000003",
-    "lockscreen-widget-0000000000000004"
+    "lockscreen-widget-0000000000000005",
+    "lockscreen-widget-0000000000000006",
+    "lockscreen-widget-0000000000000007"
 ]
 
     [lockscreen_widgets.grid]
@@ -93,10 +97,10 @@ widget_order = [
         show_weather = true
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
-    box_height = 288.0
-    box_width = 608.0
-    cx = 960.0
-    cy = 540.0
+    box_height = 448.0
+    box_width = 576.0
+    cx = 848.0
+    cy = 492.0
     output = "eDP-1"
     rotation = 0.0
     type = "clock"
@@ -115,27 +119,45 @@ widget_order = [
     rotation = 0.0
     type = "calendar"
 
-    [lockscreen_widgets.widget.lockscreen-widget-0000000000000003]
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000005]
     box_height = 0.0
     box_width = 0.0
-    cx = 492.0
-    cy = 540.0
+    cx = 1265.0
+    cy = 490.0
     output = "eDP-1"
     rotation = 0.0
     type = "sysmon"
 
-        [lockscreen_widgets.widget.lockscreen-widget-0000000000000003.settings]
-        stat = "cpu_usage"
-        stat2 = "cpu_temp"
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000005.settings]
+        display = "graph"
+        stat = "ram_pct"
+        stat2 = "swap_pct"
 
-    [lockscreen_widgets.widget.lockscreen-widget-0000000000000004]
-    box_height = 128.0
-    box_width = 208.0
-    cx = 1432.0
-    cy = 540.0
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000006]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 1265.0
+    cy = 330.0
     output = "eDP-1"
     rotation = 0.0
-    type = "volume"
+    type = "sysmon"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000006.settings]
+        stat = "net_rx"
+        stat2 = "net_tx"
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000007]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 1265.0
+    cy = 650.0
+    output = "eDP-1"
+    rotation = 0.0
+    type = "sysmon"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000007.settings]
+        stat = "cpu_usage"
+        stat2 = "cpu_temp"
 
 [shell]
 avatar_path = "/home/sujan/Pictures/lockscreen/pic.jpg"
