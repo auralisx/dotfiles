@@ -160,3 +160,20 @@ opt.fillchars = {
 -- Misc
 -- -----------------------------------------------------------------------------
 o.shada = "'100,<50,s10,:1000,/100,@100,h" -- Limit ShaDa file (for startup)
+
+-- inline diagnostics
+vim.diagnostic.config({
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = " ",
+			[vim.diagnostic.severity.WARN] = " ",
+			[vim.diagnostic.severity.INFO] = " ",
+			[vim.diagnostic.severity.HINT] = " ",
+		},
+	},
+	virtual_text = {
+		severity = vim.diagnostic.severity.ERROR,
+	},
+})
+
+

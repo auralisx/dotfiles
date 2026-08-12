@@ -1,0 +1,139 @@
+[bar.default]
+center = [ "control-center", "clock", "media" ]
+end = [ "tray", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "sysmon", "ram", "temp", "session" ]
+margin_ends = 0
+position = "right"
+radius = 8
+radius_bottom_right = 0
+radius_top_right = 0
+start = [ "notifications", "launcher", "wallpaper", "workspaces" ]
+widget_spacing = 8
+
+[control_center]
+hidden_tabs = [ "weather" ]
+sidebar = "full"
+sidebar_section = "full"
+
+[desktop_widgets]
+schema_version = 2
+widget_order = []
+
+    [desktop_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [desktop_widgets.widget]
+
+[lockscreen_widgets]
+enabled = false
+schema_version = 2
+widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@eDP-1" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 960.0
+    cy = 898.0
+    output = "HDMI-A-1"
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 960.0
+    cy = 898.0
+    output = "eDP-1"
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+[shell]
+avatar_path = "/home/sujan/Pictures/lockscreen/pic.jpg"
+
+    [shell.panel]
+    open_near_click_control_center = true
+
+[theme]
+builtin = "Tokyo-Night"
+
+    [theme.templates]
+    builtin_ids = [ "gtk4", "ghostty", "qt" ]
+
+[wallpaper]
+directory = "/home/sujan/Pictures/wallpapers"
+
+    [wallpaper.default]
+    path = "/home/sujan/Pictures/wallpapers/gamesofthrones.png"
+
+    [wallpaper.last]
+    path = "/home/sujan/Pictures/wallpapers/gamesofthrones.png"
+
+    [wallpaper.monitors.HDMI-A-1]
+    path = "/home/sujan/Pictures/wallpapers/gamesofthrones.png"
+
+    [wallpaper.monitors.eDP-1]
+    path = "/home/sujan/Pictures/wallpapers/gamesofthrones.png"
+
+[weather]
+enabled = false
+
+[widget.battery]
+show_label = false
+
+[widget.clock]
+format = "{:%I:%M  %P}"
+tooltip_format = "{:%A}\\n{:%Y-%m-%d}"
+
+[widget.network]
+show_label = false
+
+[widget.ram]
+show_value = false
+
+[widget.sysmon]
+show_value = false
+
+[widget.temp]
+show_value = false
+
+[widget.workspaces]
+show_labels = false
+style = "focus_hint"

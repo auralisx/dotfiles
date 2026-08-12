@@ -6468,3 +6468,5 @@ ConversationListView .view .cell, ConversationListView iconview .cell {
     box-shadow: none; }
 
 /*# sourceMappingURL=gtk.css.map */
+
+@import url("noctalia.css");

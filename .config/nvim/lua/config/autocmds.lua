@@ -53,25 +53,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 })
 
--- wrap and check for spell in text filetypes
-vim.api.nvim_create_autocmd("FileType", {
-	group = buffer_group,
-	pattern = { "text", "plaintex", "typst", "gitcommit", "markdown" },
-	callback = function()
-		vim.opt_local.wrap = true
-		vim.opt_local.spell = true
-	end,
-})
-
--- Fix conceallevel for json files
-vim.api.nvim_create_autocmd({ "FileType" }, {
-	group = buffer_group,
-	pattern = { "json", "jsonc", "json5" },
-	callback = function()
-		vim.opt_local.conceallevel = 0
-	end,
-})
-
 -- UI & APPEARANCE
 local ui_group = augroup("ui_tweaks")
 
@@ -150,6 +131,25 @@ vim.api.nvim_create_autocmd("BufRead", {
 	pattern = { ".env", ".env.*" },
 	callback = function()
 		vim.bo.filetype = "dosini"
+	end,
+})
+
+-- wrap and check for spell in text filetypes
+vim.api.nvim_create_autocmd("FileType", {
+	group = lang_group,
+	pattern = { "text", "plaintex", "typst", "gitcommit", "markdown" },
+	callback = function()
+		vim.opt_local.wrap = true
+		vim.opt_local.spell = true
+	end,
+})
+
+-- Fix conceallevel for json files
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	group = lang_group,
+	pattern = { "json", "jsonc", "json5" },
+	callback = function()
+		vim.opt_local.conceallevel = 0
 	end,
 })
 

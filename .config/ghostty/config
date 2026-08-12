@@ -1,6 +1,6 @@
 font-family = "Firacode Nerd Font"
 font-size = 10
-theme = "TokyoNight"
+theme = noctalia
 window-decoration = false
 confirm-close-surface = false
 command = /usr/bin/fish --login --interactive

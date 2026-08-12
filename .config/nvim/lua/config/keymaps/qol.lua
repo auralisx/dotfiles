@@ -1,5 +1,25 @@
 -- Quality-of-life keymaps that enhance core editing behavior.
 
+-- Avoid overwriting register when changing or deleting
+vim.keymap.set({ "n", "x" }, "c", '"_c', { desc = "Change without yank", noremap = true })
+vim.keymap.set({ "n", "x" }, "C", '"_C', { desc = "Change without yank", noremap = true })
+vim.keymap.set({ "n", "x" }, "cc", '"_cc', { desc = "Change without yank", noremap = true })
+vim.keymap.set({ "n", "x" }, "x", '"_x', { desc = "Delete without yank", noremap = true })
+
+-- Paste over selection without overwriting yank register
+vim.keymap.set(
+	"x",
+	"p",
+	'p:let @+=@0<CR>:let @"=@0<CR>',
+	{ desc = "Paste without yanking", expr = true, noremap = true }
+)
+vim.keymap.set(
+	"x",
+	"P",
+	'P:let @+=@0<CR>:let @"=@0<CR>',
+	{ desc = "Paste in-place without yanking", expr = true, noremap = true }
+)
+
 -- Make `j` and `k` move by display line, not logical line
 -- Useful when lines wrap (e.g., in prose or long code lines)
 vim.keymap.set(

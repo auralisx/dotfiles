@@ -32,8 +32,8 @@ g.mapleader = vim.keycode("<space>")
 g.maplocalleader = vim.keycode("\\")
 
 -- Core options and settings
-require("core.options")
-require("core.autocmds")
-require("keymaps.editing")
-require("keymaps.general")
-require("keymaps.navigation")
+require("config.options")
+require("config.autocmds")
+require("config.keymaps.editing")
+require("config.keymaps.qol")
+require("config.keymaps.navigation")

@@ -92,9 +92,9 @@ function update-all --description "Update every package manager"
     echo "==> Rust toolchain"
     rustup update
 
-    echo
-    echo "==> Cargo packages"
-    cargo install-update -a
+    # echo
+    # echo "==> Cargo packages"
+    # cargo install-update -a
 
     echo
     echo "==> Yazi plugins"

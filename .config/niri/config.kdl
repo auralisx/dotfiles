@@ -17,7 +17,9 @@ binds {
 
     Mod+Shift+Ctrl+R hotkey-overlay-title="<b>System: </b> Reboot" repeat=false { spawn "systemctl" "reboot"; }
     Mod+Shift+Ctrl+X hotkey-overlay-title="<b>System: </b> Shutdown" repeat=false { spawn "systemctl" "poweroff" "-i"; }
-    Mod+Shift+Ctrl+B hotkey-overlay-title="<b>System: </b> Toggle Waybar" repeat=false { spawn "pkill" "-USR1" "waybar"; }
+    // Mod+Shift+Ctrl+B hotkey-overlay-title="<b>System: </b> Toggle Waybar" repeat=false { spawn "pkill" "-USR1" "waybar"; }
+    Mod+Shift+Ctrl+B hotkey-overlay-title="<b>System: </b> Toggle Noctalia Bar" repeat=false { spawn "noctalia" "msg" "bar-toggle"; }
+    Mod+Shift+Ctrl+N hotkey-overlay-title="<b>System: </b> Update Noctalia Config" repeat=false { spawn-sh "noctalia config export > dotfiles/.config/noctalia/config.toml"; }
 
     // Screenshot
     Print hotkey-overlay-title="<b>Screenshot: </b> Region" { screenshot; }
@@ -39,34 +41,42 @@ binds {
       ";
     }
 
-    Mod+Alt+W hotkey-overlay-title="<b>Wallpaper: Random</b>" {
-      spawn-sh "
-        file=$(ls ~/Pictures/wallpapers | shuf -n 1) &&
-        [ -n \"$file\" ] &&
-        awww img  -o eDP-1 ~/Pictures/wallpapers/$file --transition-type random
-        ";
-    }
+    Mod+Alt+W hotkey-overlay-title="<b>Wallpaper: Randowm</b>" { spawn "noctalia" "msg" "wallpaper-random"; }
+    // Mod+Alt+W hotkey-overlay-title="<b>Wallpaper: Random</b>" {
+    //   spawn-sh "
+    //     file=$(ls ~/Pictures/wallpapers | shuf -n 1) &&
+    //     [ -n \"$file\" ] &&
+    //     awww img  -o eDP-1 ~/Pictures/wallpapers/$file --transition-type random
 
-    Mod+Alt+1 hotkey-overlay-title="<b>Wallpaper: </b>Laptop Monitor" {
-      spawn-sh "
-        file=$(ls ~/Pictures/wallpapers | fuzzel --dmenu -p 'Wallpaper For Monitor DP-1: ' --width=60) &&
-        [ -n \"$file\" ] &&
-        awww img  -o eDP-1 ~/Pictures/wallpapers/$file --transition-type random
-        ";
-    }
+    //     file=$(ls ~/Pictures/wallpapers | shuf -n 1) &&
+    //     [ -n \"$file\" ] &&
+    //     awww img  -o HDMI-A-1 ~/Pictures/wallpapers/$file --transition-type random
+    //     ";
+    // }
 
-    Mod+ALt+2 hotkey-overlay-title="<b>Wallpaper: </b>Secondary Monitor" {
-      spawn-sh "
-        file=$(ls ~/Pictures/wallpapers | fuzzel --dmenu -p 'Wallpaper For Monitor HDMI-A-1: ' --width=60) &&
-        [ -n \"$file\" ] &&
-        awww img -o HDMI-A-1 ~/Pictures/wallpapers/$file --transition-type random
-        ";
-    }
+    // Mod+Alt+1 hotkey-overlay-title="<b>Wallpaper: </b>Laptop Monitor" {
+    //   spawn-sh "
+    //     file=$(ls ~/Pictures/wallpapers | fuzzel --dmenu -p 'Wallpaper For Monitor DP-1: ' --width=60) &&
+    //     [ -n \"$file\" ] &&
+    //     awww img  -o eDP-1 ~/Pictures/wallpapers/$file --transition-type random
+    //     ";
+    // }
+
+    // Mod+ALt+2 hotkey-overlay-title="<b>Wallpaper: </b>Secondary Monitor" {
+    //   spawn-sh "
+    //     file=$(ls ~/Pictures/wallpapers | fuzzel --dmenu -p 'Wallpaper For Monitor HDMI-A-1: ' --width=60) &&
+    //     [ -n \"$file\" ] &&
+    //     awww img -o HDMI-A-1 ~/Pictures/wallpapers/$file --transition-type random
+    //     ";
+    // }
 
     // Primary Applications
     Mod+Return hotkey-overlay-title="<b>Open a Terminal: </b> Ghostty" {spawn "ghostty"; }
-    Mod+Semicolon hotkey-overlay-title="<b>Run an Application: </b> Fuzzel" { spawn "fuzzel"; }
-    Mod+Shift+Ctrl+L hotkey-overlay-title="<b>Lock Screen: </b> Hyprlock" allow-when-locked=true { spawn "hyprlock"; }
+    // Mod+Semicolon hotkey-overlay-title="<b>Run an Application: </b> Fuzzel" { spawn "fuzzel"; }
+    Mod+Semicolon hotkey-overlay-title="<b>Run an Application: </b> Noctalia App Launcher" { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
+    // Mod+Shift+Ctrl+L hotkey-overlay-title="<b>Lock Screen: </b> Hyprlock" allow-when-locked=true { spawn "hyprlock"; }
+    Mod+Shift+Ctrl+L hotkey-overlay-title="<b>Lock Screen: </b> Noctalia Lock" allow-when-locked=true { spawn "noctalia" "msg" "session" "lock"; }
+
     Mod+Z { spawn "zeditor"; }
 
     Mod+Alt+D hotkey-overlay-title="<b>Edit Dotfiles: </b> ~/dotfiles/" { spawn-sh "zeditor ~/dotfiles/"; }
@@ -85,22 +95,29 @@ binds {
     Mod+Alt+P { spawn "hyprpicker" "-a"; }
     Mod+Alt+Y { spawn "chromium"; }
 
-    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"; }
-    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
-    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+    // XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+"; }
+    // XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"; }
+    // XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    // XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+5%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "5%-"; }
-    Mod+XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "100%"; }
-    Mod+XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "5%"; }
+    // XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+5%"; }
+    // XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "5%-"; }
+    // Mod+XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "100%"; }
+    // Mod+XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "5%"; }
+
+    // Audio & Brightness
+    XF86AudioRaiseVolume { spawn "noctalia" "msg" "volume-up"; }
+    XF86AudioLowerVolume { spawn "noctalia" "msg" "volume-down"; }
+    XF86AudioMute { spawn "noctalia" "msg" "volume-mute"; }
+    XF86MonBrightnessUp { spawn "noctalia" "msg" "brightness-up"; }
+    XF86MonBrightnessDown { spawn "noctalia" "msg" "brightness-down"; }
 
     // Example media keys mapping using playerctl.
     // This will work with any MPRIS-enabled media player.
-    XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
-    XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
-    XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
-    XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
+    // XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
+    // XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
+    // XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
+    // XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
 
     Mod+H     { focus-column-left; }
     Mod+J     { focus-window-or-workspace-down; }
