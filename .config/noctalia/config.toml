@@ -26,9 +26,16 @@ widget_order = []
     [desktop_widgets.widget]
 
 [lockscreen_widgets]
-enabled = false
+enabled = true
 schema_version = 2
-widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@eDP-1" ]
+widget_order = [
+    "lockscreen-login-box@HDMI-A-1",
+    "lockscreen-login-box@eDP-1",
+    "lockscreen-widget-0000000000000001",
+    "lockscreen-widget-0000000000000002",
+    "lockscreen-widget-0000000000000003",
+    "lockscreen-widget-0000000000000004"
+]
 
     [lockscreen_widgets.grid]
     cell_size = 16
@@ -85,6 +92,51 @@ widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@eDP-1" ]
         show_unlock_hint = true
         show_weather = true
 
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
+    box_height = 288.0
+    box_width = 608.0
+    cx = 960.0
+    cy = 540.0
+    output = "eDP-1"
+    rotation = 0.0
+    type = "clock"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000001.settings]
+        center_text = false
+        clock_style = "digital"
+        format = "{:%I:%M}"
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000002]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 960.0
+    cy = 540.0
+    output = "HDMI-A-1"
+    rotation = 0.0
+    type = "calendar"
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000003]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 492.0
+    cy = 540.0
+    output = "eDP-1"
+    rotation = 0.0
+    type = "sysmon"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000003.settings]
+        stat = "cpu_usage"
+        stat2 = "cpu_temp"
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000004]
+    box_height = 128.0
+    box_width = 208.0
+    cx = 1432.0
+    cy = 540.0
+    output = "eDP-1"
+    rotation = 0.0
+    type = "volume"
+
 [shell]
 avatar_path = "/home/sujan/Pictures/lockscreen/pic.jpg"
 
@@ -101,16 +153,16 @@ builtin = "Tokyo-Night"
 directory = "/home/sujan/Pictures/wallpapers"
 
     [wallpaper.default]
-    path = "/home/sujan/Pictures/wallpapers/gamesofthrones.png"
+    path = "/home/sujan/Pictures/wallpapers/dark-girl.jpg"
 
     [wallpaper.last]
-    path = "/home/sujan/Pictures/wallpapers/gamesofthrones.png"
+    path = "/home/sujan/Pictures/wallpapers/cool_gamer_girl.jpg"
 
     [wallpaper.monitors.HDMI-A-1]
-    path = "/home/sujan/Pictures/wallpapers/gamesofthrones.png"
+    path = "/home/sujan/Pictures/wallpapers/dark-girl.jpg"
 
     [wallpaper.monitors.eDP-1]
-    path = "/home/sujan/Pictures/wallpapers/gamesofthrones.png"
+    path = "/home/sujan/Pictures/wallpapers/cool_gamer_girl.jpg"
 
 [weather]
 enabled = false
