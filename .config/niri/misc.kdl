@@ -26,6 +26,7 @@ gestures {
 
 prefer-no-csd
 spawn-at-startup "noctalia"
+spawn-at-startup "udiskie &"
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 cursor {
