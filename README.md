@@ -1,59 +1,22 @@
+
 # Dotfiles
 
-My personal Linux desktop configuration for Arch Linux.
+Personal dotfiles for my Arch Linux setup, centered around **niri** and **Noctalia**.
 
-The repository contains configuration files for my Wayland desktop, terminal, editor, shell, and development tools. It is primarily intended for restoring my setup on a fresh Arch installation.
+## Quick Overview
 
-## Components
+* **WM:** niri
+* **Desktop Shell:** Noctalia
+* **Launcher:** Noctalia Launcher + fuzzel as dmenu
+* **Terminal:** Ghostty
+* **Shell:** Fish
+* **Editor:** Neovim / Zed
+* **File Manager:** Yazi
+* **Multiplexer:** Zellij
+* **Audio:** PipeWire + WirePlumber
+* **Notifications / Desktop utilities:** Noctalia
+* **System:** systemd, Btrfs, Snapper, TLP
+* **Browser:** Firefox Developer Edition / Vivaldi / Chromium
+* **AUR:** paru
 
-### Desktop
-
-* Niri
-* Hyprlock
-* Hypridle
-* Waybar
-* Sway Notification Center (swaync)
-* Fuzzel
-* Ghostty
-* GTK themes (`.themes`)
-
-### User Services
-
-Custom `systemd --user` services for:
-
-* Waybar
-* NetworkManager applet
-* Bluetooth applet
-* Polkit agent
-* Udiskie
-* Wallpaper daemon (`awww`)
-
-### Miscellaneous
-
-* Electron/Chromium flags
-* CopyQ configuration
-* User shell configuration (`.bashrc`)
-
-## Installation
-
-Clone the repository into your home directory:
-
-```bash
-git clone <repository-url> ~/dotfiles
-```
-
-Run the installation script:
-
-```bash
-cd ~/dotfiles
-./install.sh
-```
-
-The script installs the required packages, creates backups of existing configuration files, links the dotfiles into place, and enables the required services.
-
-## Notes
-
-* Designed for Arch Linux.
-* Intended for personal use.
-* Package installation is handled by `pacman` and `paru`.
-* Development tooling managed by Nix, Cargo, and npm.
+The repository is primarily a record of my personal setup rather than a portable configuration or installation framework.
