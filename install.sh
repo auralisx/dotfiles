@@ -14,11 +14,11 @@ PACMAN_PACKAGES=(
   # Desktop Env (Wayland)
   niri  xdg-desktop-portal-gtk xdg-desktop-portal-gnome polkit-gnome gnome-keyring gvfs-mtp xwayland-satellite
 
-  # hypridle hyprlock waybar swaync blueman network-manager-applet brightnessctl awww nwg-look
+  # hypridle hyprlock fuzzel waybar swaync blueman network-manager-applet brightnessctl awww
   # Above packages are replaced by Noctalia
 
   # Desktop Utilities
-  noctalia fuzzel reflector wl-clipboard copyq satty bluez bluez-utils networkmanager
+  noctalia reflector wl-clipboard copyq satty bluez bluez-utils networkmanager nwg-look
 
   # Audio
   pipewire pipewire-alsa pipewire-jack pipewire-pulse pipewire-zeroconf wireplumber qpwgraph pavucontrol sof-firmware

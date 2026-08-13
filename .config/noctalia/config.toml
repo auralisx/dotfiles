@@ -28,6 +28,24 @@ widget_order = []
 
     [desktop_widgets.widget]
 
+[idle]
+behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
+
+    [idle.behavior.lock]
+    action = "lock"
+    enabled = true
+    timeout = 300.0
+
+    [idle.behavior.lock-and-suspend]
+    action = "lock_and_suspend"
+    enabled = true
+    timeout = 600.0
+
+    [idle.behavior.screen-off]
+    action = "screen_off"
+    enabled = true
+    timeout = 360.0
+
 [lockscreen_widgets]
 enabled = true
 schema_version = 2
@@ -209,5 +227,6 @@ show_value = false
 show_value = false
 
 [widget.workspaces]
+focused_color = "on_primary"
 show_labels = false
 style = "focus_hint"

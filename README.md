@@ -1,13 +1,12 @@
 
 # Dotfiles
 
-Personal dotfiles for my Arch Linux setup, centered around **niri** and **Noctalia**.
+Personal dotfiles for my Arch Linux setup, centered around **Niri** and **Noctalia**.
 
 ## Quick Overview
 
 * **WM:** niri
 * **Desktop Shell:** Noctalia
-* **Launcher:** Noctalia Launcher + fuzzel as dmenu
 * **Terminal:** Ghostty
 * **Shell:** Fish
 * **Editor:** Neovim / Zed

@@ -36,7 +36,7 @@ binds {
     }
     Mod+Alt+Print hotkey-overlay-title="<b>Select Screenshot to Annotate</b>" {
       spawn-sh "
-          FILE=$(ls -t ~/Pictures/Screenshots/*.png | fuzzel --dmenu --prompt='Select to Annotate: ' --lines=15 --width=80) &&
+          FILE=$(ls -t ~/Pictures/Screenshots/*.png | noctalia dmenu -p 'Select to Annotate: ' ) &&
           [ -n \"$FILE\" ] && satty --filename \"$FILE\"
       ";
     }
@@ -82,7 +82,7 @@ binds {
     Mod+Alt+D hotkey-overlay-title="<b>Edit Dotfiles: </b> ~/dotfiles/" { spawn-sh "zeditor ~/dotfiles/"; }
     Mod+Alt+Menu hotkey-overlay-title="<b>Launch Project:</b> Zeditor" {
         spawn-sh "
-            project=$(fd -d 1 --type d . ~/Dev | fuzzel --dmenu --prompt='Open Project: ' --lines=15 --width=60) &&
+            project=$(fd -d 1 --type d . ~/Dev | noctalia dmenu -p 'Open Project: ') &&
             [ -n \"$project\" ] &&
             zeditor \"$project\"
         ";
