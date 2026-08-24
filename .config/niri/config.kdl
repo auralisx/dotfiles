@@ -19,7 +19,7 @@ binds {
     Mod+Shift+Ctrl+X hotkey-overlay-title="<b>System: </b> Shutdown" repeat=false { spawn "systemctl" "poweroff" "-i"; }
     // Mod+Shift+Ctrl+B hotkey-overlay-title="<b>System: </b> Toggle Waybar" repeat=false { spawn "pkill" "-USR1" "waybar"; }
     Mod+Shift+Ctrl+B hotkey-overlay-title="<b>System: </b> Toggle Noctalia Bar" repeat=false { spawn "noctalia" "msg" "bar-toggle"; }
-    Mod+Shift+Ctrl+N hotkey-overlay-title="<b>System: </b> Update Noctalia Config" repeat=false { spawn-sh "noctalia config export > dotfiles/.config/noctalia/config.toml"; }
+    Mod+Shift+Ctrl+N hotkey-overlay-title="<b>System: </b> Update Noctalia Config" repeat=false { spawn-sh "noctalia config export > $HOME/dotfiles/.config/noctalia/config.toml"; }
 
     // Screenshot
     Print hotkey-overlay-title="<b>Screenshot: </b> Region" { screenshot; }
@@ -27,14 +27,15 @@ binds {
     Ctrl+Print hotkey-overlay-title="<b>Screenshot: </b> Window" { screenshot-window; }
     // Mod+Print allow-when-locked=true hotkey-overlay-title="<b>Screenshot With Annotation: </b> Region" { spawn "fish" "-c" "grim -g \"$(slurp -c '#bb9af7')\" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/satty-$(date '+%Y%m%d-%H:%M:%S').png"; }
     // Mod+Shift+Print hotkey-overlay-title="<b>Screenshot With Annotation: </b> Screen" { spawn "fish" "-c" "grim -g \"$(slurp -o -r -c '#bb9af7')\" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/satty-$(date '+%Y%m%d-%H:%M:%S').png"; }
-    Mod+Print hotkey-overlay-title="<b>Annotate Recent Screenshot</b>" {
-      spawn-sh "
-          file=$(ls -t ~/Pictures/Screenshots/*.png | head -n 1) &&
-          [ -n \"$file\" ] &&
-          satty --filename \"$file\"
-      ";
-    }
-    Mod+Alt+Print hotkey-overlay-title="<b>Select Screenshot to Annotate</b>" {
+    Mod+Print hotkey-overlay-title="<b>Screenshot With Annotation: </b> Noctalia + Satty" { spawn "noctalia" "msg" "screenshot-region"; }
+    // Mod+Print hotkey-overlay-title="<b>Annotate Recent Screenshot</b>" {
+    //   spawn-sh "
+    //       file=$(ls -t ~/Pictures/Screenshots/*.png | head -n 1) &&
+    //       [ -n \"$file\" ] &&
+    //       satty --filename \"$file\"
+    //   ";
+    // }
+    Mod+Alt+Print hotkey-overlay-title="<b>Select Niri Screenshot to Annotate</b>" {
       spawn-sh "
           FILE=$(ls -t ~/Pictures/Screenshots/*.png | noctalia dmenu -p 'Select to Annotate: ' ) &&
           [ -n \"$FILE\" ] && satty --filename \"$FILE\"
@@ -77,8 +78,6 @@ binds {
     // Mod+Shift+Ctrl+L hotkey-overlay-title="<b>Lock Screen: </b> Hyprlock" allow-when-locked=true { spawn "hyprlock"; }
     Mod+Shift+Ctrl+L hotkey-overlay-title="<b>Lock Screen: </b> Noctalia Lock" allow-when-locked=true { spawn "noctalia" "msg" "session" "lock"; }
 
-    Mod+Z { spawn "zeditor"; }
-
     Mod+Alt+D hotkey-overlay-title="<b>Edit Dotfiles: </b> ~/dotfiles/" { spawn-sh "zeditor ~/dotfiles/"; }
     Mod+Alt+Menu hotkey-overlay-title="<b>Launch Project:</b> Zeditor" {
         spawn-sh "
@@ -92,7 +91,7 @@ binds {
     Mod+Alt+B { spawn "vivaldi"; }
     Mod+Alt+E { spawn "nautilus"; }
     Mod+Menu { spawn "copyq" "toggle"; }
-    Mod+Alt+P { spawn "hyprpicker" "-a"; }
+    Mod+Alt+P { spawn "hyprpicker" "-a" "--output-format=hsl({0}, {1}, {2})" "--format=hsl"; }
     Mod+Alt+Y { spawn "chromium"; }
 
     // XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+"; }
