@@ -84,9 +84,9 @@ function update-all --description "Update every package manager"
     echo "==> Pacman"
     sudo-rs pacman -Syu
 
-    echo
-    echo "==> AUR"
-    paru -Sua
+    # echo
+    # echo "==> AUR"
+    # paru -Sua
 
     echo
     echo "==> Rust toolchain"
