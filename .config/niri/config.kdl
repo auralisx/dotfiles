@@ -23,8 +23,8 @@ binds {
 
     // Screenshot
     Print hotkey-overlay-title="<b>Screenshot: </b> Region" { screenshot; }
-    Shift+Print hotkey-overlay-title="<b>Screenshot: </b> Screen" { screenshot-screen; }
-    Ctrl+Print hotkey-overlay-title="<b>Screenshot: </b> Window" { screenshot-window; }
+    Shift+Print hotkey-overlay-title="<b>Screenshot: </b> Screen" { screenshot-screen write-to-disk=false show-pointer=false; }
+    Ctrl+Print hotkey-overlay-title="<b>Screenshot: </b> Window" { screenshot-window write-to-disk=false show-pointer=false; }
     // Mod+Print allow-when-locked=true hotkey-overlay-title="<b>Screenshot With Annotation: </b> Region" { spawn "fish" "-c" "grim -g \"$(slurp -c '#bb9af7')\" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/satty-$(date '+%Y%m%d-%H:%M:%S').png"; }
     // Mod+Shift+Print hotkey-overlay-title="<b>Screenshot With Annotation: </b> Screen" { spawn "fish" "-c" "grim -g \"$(slurp -o -r -c '#bb9af7')\" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/satty-$(date '+%Y%m%d-%H:%M:%S').png"; }
     Mod+Print hotkey-overlay-title="<b>Screenshot With Annotation: </b> Noctalia + Satty" { spawn "noctalia" "msg" "screenshot-region"; }
