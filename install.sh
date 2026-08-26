@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -Eeuo pipefail
+set -euo pipefail
 IFS=$'\n\t'
 
 DOTFILES_DIR="$HOME/dotfiles"
@@ -12,42 +12,30 @@ BACKUP_DIR="$HOME/.config-backup-$(date +%Y%m%d%H%M%S)"
 
 PACMAN_PACKAGES=(
   # Desktop Env (Wayland)
-  niri  xdg-desktop-portal-gtk xdg-desktop-portal-gnome polkit-gnome gnome-keyring gvfs-mtp xwayland-satellite
+  niri xdg-desktop-portal-gtk xdg-desktop-portal-gnome polkit-gnome gnome-keyring gvfs-mtp xwayland-satellite
 
   # hypridle hyprlock fuzzel waybar swaync blueman network-manager-applet brightnessctl awww
   # Above packages are replaced by Noctalia
 
   # Desktop Utilities
-  noctalia reflector wl-clipboard copyq satty bluez bluez-utils networkmanager nwg-look
+  noctalia reflector wl-clipboard copyq satty bluez bluez-utils networkmanager swayimg adw-gtk-theme
 
   # Audio
-  pipewire pipewire-alsa pipewire-jack pipewire-pulse pipewire-zeroconf wireplumber qpwgraph pavucontrol sof-firmware
+  pipewire pipewire-alsa pipewire-jack pipewire-pulse pipewire-zeroconf wireplumber pavucontrol sof-firmware
 
   # Fonts
   ttf-firacode-nerd woff2-font-awesome noto-fonts-emoji
 
-  # Personal packages
-  # Browsers
-  firefox-developer-edition vivaldi chromium
-
-  # Dev
-  neovim zed tree-sitter-cli opencode npm pnpm nix rustup
+  # Desktop packages and utilities
+  firefox-developer-edition vivaldi chromium snapper btrfs-assistant snap-pac mpv tlp iptables-nft ufw hyprpicker obs-studio pacman-contrib
 
   # Terminal and Shell
   ghostty sudo-rs fish eza fzf ripgrep zoxide starship lazygit zellij bat bottom ast-grep
   yazi jq resvg fd imagemagick poppler ouch
 
-  # System
-  snapper btrfs-assistant snap-pac
-  mpv tlp iptables-nft ufw
+  # Dev
+  neovim zed tree-sitter-cli opencode npm pnpm nix rustup
 
-  # Misc
-  hyprpicker obs-studio
-)
-
-# AUR packages
-AUR_PACKAGES=(
-  beautyline
 )
 
 # ───────────────────────────────────────────────────────────
@@ -74,7 +62,6 @@ CONFIGS=(
 
 HOME_FILES=(
   .bashrc
-  .themes
 )
 
 SYSTEM_SERVICES=(
@@ -103,36 +90,10 @@ info() {
 # Functions
 # ───────────────────────────────────────────────────────────
 
-# Install paru if not present
-install_paru() {
-  if command -v paru &>/dev/null; then
-    echo "paru is already installed."
-    return 0
-  fi
-
-  echo "Installing paru (AUR helper)..."
-  sudo pacman -Sy --needed --noconfirm base-devel git
-
-  local tmp_dir
-  tmp_dir=$(mktemp -d)
-  git clone "https://aur.archlinux.org/paru.git" "$tmp_dir/paru"
-  pushd "$tmp_dir/paru" >/dev/null
-  makepkg -si
-  popd >/dev/null
-  rm -rf "$tmp_dir"
-  echo "paru installed successfully."
-  echo
-}
-
 install_packages() {
   info "Installing pacman packages..."
 
   sudo pacman -Syu --needed "${PACMAN_PACKAGES[@]}"
-
-  if ((${#AUR_PACKAGES[@]})); then
-    info "Installing AUR packages..."
-    paru -S --needed "${AUR_PACKAGES[@]}"
-  fi
 }
 
 backup_and_link() {
@@ -174,11 +135,7 @@ enable_services() {
 
   for svc in "${SYSTEM_SERVICES[@]}"; do
 
-    if systemctl list-unit-files | grep -q "^$svc"; then
-      sudo systemctl enable --now "$svc"
-    else
-      echo "Skipping missing service: $svc"
-    fi
+    sudo systemctl enable --now "$svc"
 
   done
 }
@@ -205,7 +162,7 @@ install_packages
 setup_dotfiles
 enable_services
 
-install_npm_packages
-install_cargo_packages
+# install_npm_packages
+# install_cargo_packages
 
 info "Setup complete"
