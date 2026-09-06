@@ -1,6 +1,6 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "044c3cc"
+rev = "4dc7f1b"
 hash = "5bb0bfab901d3601c370eafdd66edd31"
 
 [[plugin.deps]]
