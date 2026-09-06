@@ -9,6 +9,8 @@ radius_top_right = 0
 start = [ "notifications", "wallpaper", "clock" ]
 widget_spacing = 12
 
+[calendar]
+
 [control_center]
 hidden_tabs = [ "weather" ]
 sidebar = "full"
@@ -16,6 +18,24 @@ sidebar_section = "full"
 
     [control_center.calendar]
     show_events_card = false
+
+    [[control_center.shortcuts]]
+    type = "wifi"
+
+    [[control_center.shortcuts]]
+    type = "bluetooth"
+
+    [[control_center.shortcuts]]
+    type = "caffeine"
+
+    [[control_center.shortcuts]]
+    type = "notification"
+
+    [[control_center.shortcuts]]
+    type = "mic_mute"
+
+    [[control_center.shortcuts]]
+    type = "nightlight"
 
 [desktop_widgets]
 schema_version = 2
@@ -45,6 +65,10 @@ behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
     action = "screen_off"
     enabled = true
     timeout = 360.0
+
+[keybinds]
+down = [ "Down", "Ctrl+n" ]
+up = [ "Up", "Ctrl+p" ]
 
 [lockscreen_widgets]
 enabled = true
@@ -191,12 +215,20 @@ widget_order = [
         stat = "cpu_usage"
         stat2 = "cpu_temp"
 
+[nightlight]
+enabled = true
+
 [plugins]
 enabled = []
 
 [shell]
 avatar_path = "/home/sujan/Pictures/lockscreen/pic.jpg"
 clipboard_enabled = false
+polkit_agent = true
+screen_time_enabled = true
+
+    [shell.launcher]
+    show_app_actions = true
 
     [shell.panel]
     open_near_click_control_center = true
@@ -207,6 +239,10 @@ clipboard_enabled = false
     pipe_to_command = true
     remember_last_region = true
     save_to_file = false
+
+    [shell.session]
+    grid = true
+    grid_columns = 2
 
 [theme]
 builtin = "Tokyo-Night"
