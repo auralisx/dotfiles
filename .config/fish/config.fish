@@ -1,38 +1,18 @@
 
 ### ADDING TO THE PATH
-# First line removes the path; second line sets it.  Without the first line,
-# your path gets massive and fish becomes very slow.
-set -e fish_user_paths
-set -Ux fish_user_paths $fish_user_paths $HOME/.local/bin
+fish_add_path $HOME/.local/bin
 
 ### EXPORT ###
 set fish_greeting                                    # Supresses fish's intro message
-set TERM "xterm-256color"                            # Sets the terminal type
 set -x EDITOR "nvim"                                  # $EDITOR use nvim in terminal
 set -x VISUAL "nvim"                                  # $EDITOR use nvim in terminal
-# if command -q zeditor
-#     set -x VISUAL zeditor
-# else
-#     set -x VISUAL nvim
-# end
-set -gx GPG_TTY (tty)
-
-# Prevent directories names from being shortened
-set fish_prompt_pwd_dir_length 0
-set -x FZF_DEFAULT_OPTS "--color=16,header:13,info:5,pointer:3,marker:9,spinner:1,prompt:5,fg:7,hl:14,fg+:3,hl+:9 --inline-info --tiebreak=end,length --bind=shift-tab:toggle-down,tab:toggle-up"
+if status --is-interactive
+    set -gx GPG_TTY (tty)
+end
 set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --exclude .git'
 
-### SET EITHER DEFAULT EMACS MODE OR VI MODE ###
-function fish_user_key_bindings
-    # Execute this once per mode that emacs bindings should be used in
-    fish_default_key_bindings -M insert
-
-    # Then execute the vi-bindings so they take precedence when there's a conflict.
-    # Without --no-erase fish_vi_key_bindings will default to
-    # resetting all bindings.
-    # The argument specifies the initial mode (insert, "default" or visual).
-    fish_vi_key_bindings --no-erase insert
-end
+# VI mode
+fish_vi_key_bindings
 
 # Emulates vim's cursor shape behavior
 # Set the normal and visual mode cursors to a block
@@ -69,24 +49,27 @@ end
 ### ALIASES ###
 
 alias ls='eza -la'
-if command -q sudo-rs
-    alias sudo='sudo-rs '
-end
 
 #pacman
 function cleanup --description 'Remove orphaned packages'
-    sudo pacman -Rns (pacman -Qtdq)
+    set -l orphans (pacman -Qtdq 2>/dev/null)
+
+    if test (count $orphans) -gt 0
+        sudo pacman -Rns $orphans
+    else
+        echo "No orphaned packages."
+    end
 end
 
 function update-all --description "Update every package manager"
 
     echo
     echo "==> Pacman"
-    sudo-rs pacman -Syu
+    sudo pacman -Syu
 
-    echo
-    echo "==> Rust toolchain"
-    rustup update
+    # echo
+    # echo "==> Rust toolchain"
+    # rustup update
 
     # echo
     # echo "==> Cargo packages"
@@ -102,6 +85,7 @@ function update-all --description "Update every package manager"
 end
 
 alias unlock='sudo rm /var/lib/pacman/db.lck'    # remove pacman lock
+alias fzf="fzf --preview 'bat --style=numbers --color=always {}'"
 
 # Color output of ip
 alias ip="ip -color"
@@ -121,3 +105,5 @@ alias free="free -mt" # show sizes in MB
 starship init fish | source
 
 zoxide init fish | source
+
+mise activate fish | source
