@@ -17,12 +17,13 @@ binds {
 
     Mod+Shift+Ctrl+R hotkey-overlay-title="<b>System: </b> Reboot" repeat=false { spawn "systemctl" "reboot"; }
     Mod+Shift+Ctrl+X hotkey-overlay-title="<b>System: </b> Shutdown" repeat=false { spawn "systemctl" "poweroff" "-i"; }
+    Mod+Shift+Ctrl+S hotkey-overlay-title="<b>System: </b> System Monitor" repeat=false { spawn "ghostty" "-e" "btm" "-gua" "--enable_cache_memory" "--hide_k_threads" "--process_memory_as_value" "--battery" "--default_widget_type" "processes"; }
     // Mod+Shift+Ctrl+B hotkey-overlay-title="<b>System: </b> Toggle Waybar" repeat=false { spawn "pkill" "-USR1" "waybar"; }
     Mod+Shift+Ctrl+B hotkey-overlay-title="<b>System: </b> Toggle Noctalia Bar" repeat=false { spawn "noctalia" "msg" "bar-toggle"; }
     Mod+Shift+Ctrl+N hotkey-overlay-title="<b>System: </b> Update Noctalia Config" repeat=false { spawn-sh "noctalia config export > $HOME/dotfiles/.config/noctalia/config.toml"; }
 
     // Screenshot
-    Print hotkey-overlay-title="<b>Screenshot: </b> Region" { screenshot; }
+    Print hotkey-overlay-title="<b>Screenshot: </b> Region" { screenshot show-pointer=false; }
     Shift+Print hotkey-overlay-title="<b>Screenshot: </b> Screen" { screenshot-screen write-to-disk=false show-pointer=false; }
     Ctrl+Print hotkey-overlay-title="<b>Screenshot: </b> Window" { screenshot-window write-to-disk=false show-pointer=false; }
     // Mod+Print allow-when-locked=true hotkey-overlay-title="<b>Screenshot With Annotation: </b> Region" { spawn "fish" "-c" "grim -g \"$(slurp -c '#bb9af7')\" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/satty-$(date '+%Y%m%d-%H:%M:%S').png"; }
@@ -35,6 +36,7 @@ binds {
     //       satty --filename \"$file\"
     //   ";
     // }
+    Mod+Z { spawn "sh" "-c" "sel=$(zellij ls --short --no-formatting | noctalia dmenu -p 'Zellij session:'); [ -n \"$sel\" ] && ghostty -e zellij a \"$sel\""; }
     Mod+Alt+Print hotkey-overlay-title="<b>Select Niri Screenshot to Annotate</b>" {
       spawn-sh "
           FILE=$(ls -t ~/Pictures/Screenshots/*.png | noctalia dmenu -p 'Select to Annotate: ' ) &&
