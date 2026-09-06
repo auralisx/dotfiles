@@ -1,6 +1,5 @@
 -- Copy, cut, paste using system clipboard
 vim.keymap.set({ "n", "x" }, "<C-c>", '"+y', { desc = "Copy to clipboard", noremap = true })
-vim.keymap.set({ "n", "x" }, "gy", '"+y', { desc = "Copy to clipboard", noremap = true })
 vim.keymap.set({ "n" }, "gp", '"+p', { desc = "Paste from clipboard", noremap = true })
 vim.keymap.set({ "x" }, "gp", '"+P', { desc = "Paste from clipboard", noremap = true })
 vim.keymap.set({ "x" }, "<C-x>", '"+y<cmd>normal! d<cr>', { desc = "Cut to clipboard", noremap = true })
@@ -79,11 +78,8 @@ vim.keymap.set("i", "<C-a>", "<Esc>ggVG", { desc = "Select all", noremap = true 
 vim.keymap.set("i", "<C-z>", "<C-o>u", { desc = "Undo", noremap = true })
 
 -- Paste in insert mode
-vim.keymap.set("i", "<C-v>", '<C-o>"+p', { desc = "Paste from clipboard", noremap = true })
+vim.keymap.set("i", "<C-v>", "<C-r>+", { desc = "Paste from clipboard", noremap = true })
 
 -- Toggle case of word
 vim.keymap.set("n", "gu", "g~iw", { noremap = true, desc = "Toggle case of word" })
 vim.keymap.set("x", "gu", "g~", { noremap = true, desc = "Toggle case of selection" })
-
--- Toggle wrap
-vim.keymap.set("n", "<leader>tw", "<cmd>set wrap!<CR>", { desc = "Toggle Wrap", silent = true })

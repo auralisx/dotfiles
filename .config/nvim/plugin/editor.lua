@@ -22,6 +22,13 @@ require("grug-far").setup({
 	-- there are no required options atm
 })
 
+-- Toggle inlay hints for the current buffer
+vim.keymap.set("n", "<leader>ti", function()
+	local bufnr = vim.api.nvim_get_current_buf()
+	local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+	vim.lsp.inlay_hint.enable(not enabled, { bufnr = bufnr })
+end, { desc = "Toggle inlay hints", noremap = true, silent = true })
+
 -- Yazi
 vim.keymap.set("n", "<leader>ty", "<cmd>Yazi toggle<cr>", { desc = "Resume the last yazi session" })
 
@@ -50,9 +57,6 @@ vim.keymap.set("n", "<leader>fr", function()
 end, { desc = "Recent" })
 
 -- Grep
-vim.keymap.set("n", "<leader>sl", function()
-	Snacks.picker.lines()
-end, { desc = "Buffer Lines" })
 vim.keymap.set("n", "<leader>sb", function()
 	Snacks.picker.grep_buffers()
 end, { desc = "Grep Open Buffers" })
@@ -67,7 +71,7 @@ end, { desc = "Visual selection or word" })
 vim.keymap.set("n", '<leader>s"', function()
 	Snacks.picker.registers()
 end, { desc = "Registers" })
-vim.keymap.set("n", "<leader>sb", function()
+vim.keymap.set("n", "<leader>sl", function()
 	Snacks.picker.lines()
 end, { desc = "Buffer Lines" })
 vim.keymap.set("n", "<leader>sd", function()
@@ -82,7 +86,7 @@ end, { desc = "Jumps" })
 vim.keymap.set("n", "<leader>sk", function()
 	Snacks.picker.keymaps()
 end, { desc = "Keymaps" })
-vim.keymap.set("n", "<leader>sl", function()
+vim.keymap.set("n", "<leader>sL", function()
 	Snacks.picker.loclist()
 end, { desc = "Location List" })
 vim.keymap.set("n", "<leader>sm", function()

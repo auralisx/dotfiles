@@ -23,8 +23,6 @@ o.spelloptions = "camel" -- Treat camelCase word parts as separate words
 
 o.number = true -- Show absolute line numbers
 o.relativenumber = true -- Show line numbers relative to cursor
-o.virtualedit = "block" -- Allow cursor to move beyond end of line
-o.smoothscroll = true -- Smooth scrolling (if terminal supports it)
 
 o.incsearch = true -- Highlight matches as you type
 o.inccommand = "nosplit" -- Preview substitutions live
