@@ -30,11 +30,11 @@ PACMAN_PACKAGES=(
   firefox-developer-edition vivaldi chromium snapper btrfs-assistant snap-pac mpv tlp iptables-nft ufw hyprpicker obs-studio pacman-contrib
 
   # Terminal and Shell
-  ghostty sudo-rs fish eza fzf ripgrep zoxide starship lazygit zellij bat bottom ast-grep
+  ghostty fish eza fzf ripgrep zoxide starship lazygit zellij bat bottom ast-grep
   yazi jq resvg fd imagemagick poppler ouch
 
   # Dev
-  neovim zed tree-sitter-cli opencode npm pnpm nix rustup
+  neovim zed tree-sitter-cli opencode npm pnpm nix rustup mise
 
 )
 
