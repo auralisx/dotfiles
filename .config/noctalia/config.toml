@@ -1,11 +1,19 @@
+[audio]
+enable_overdrive = true
+enable_sounds = true
+
 [bar.default]
 center = [ "control-center", "workspaces", "media" ]
 end = [ "tray", "network", "bluetooth", "volume", "brightness", "battery", "sysmon", "ram", "temp", "session" ]
+layer = "overlay"
 margin_ends = 0
 position = "right"
-radius = 8
+radius = 0
 radius_bottom_right = 0
+radius_top_left = 0
 radius_top_right = 0
+reserve_space = false
+smart_auto_hide = true
 start = [ "notifications", "wallpaper", "clock" ]
 widget_spacing = 12
 
@@ -38,6 +46,7 @@ sidebar_section = "full"
     type = "nightlight"
 
 [desktop_widgets]
+enabled = false
 schema_version = 2
 widget_order = []
 
@@ -252,6 +261,7 @@ builtin = "Tokyo-Night"
 
 [wallpaper]
 directory = "/home/sujan/Pictures/wallpapers"
+transition_on_startup = true
 
     [wallpaper.default]
     path = "/home/sujan/Pictures/wallpapers/dark-girl.jpg"
