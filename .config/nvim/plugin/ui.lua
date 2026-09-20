@@ -1,10 +1,3 @@
--- Enable the new UI
-require("vim._core.ui2").enable({})
-
--- Initialize the statusline module
-local statusline = require("features.statusline")
-statusline.setup()
-
 vim.pack.add({
 	"https://github.com/folke/tokyonight.nvim",
 	"https://github.com/nvim-mini/mini.tabline",

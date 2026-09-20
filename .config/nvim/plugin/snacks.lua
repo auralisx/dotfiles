@@ -1,36 +1,14 @@
 vim.pack.add({
-	"https://github.com/mikavilpas/yazi.nvim",
-	"https://github.com/nvim-lua/plenary.nvim",
 	"https://github.com/folke/snacks.nvim",
-	"https://github.com/MagicDuck/grug-far.nvim",
-})
-require("yazi").setup({
-	open_for_directories = true,
 })
 require("snacks").setup({
 	picker = { enabled = true },
 	lazygit = { enabled = true },
-	notify = { enabled = true },
 	notifier = { enabled = true },
 	bufdelete = { enabled = true },
-	quickfile = { enabled = true },
 	indent = { enabled = true },
 	statuscolumn = { enabled = true },
 })
-require("grug-far").setup({
-	-- options, see Configuration section below
-	-- there are no required options atm
-})
-
--- Toggle inlay hints for the current buffer
-vim.keymap.set("n", "<leader>ti", function()
-	local bufnr = vim.api.nvim_get_current_buf()
-	local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
-	vim.lsp.inlay_hint.enable(not enabled, { bufnr = bufnr })
-end, { desc = "Toggle inlay hints", noremap = true, silent = true })
-
--- Yazi
-vim.keymap.set("n", "<leader>ty", "<cmd>Yazi toggle<cr>", { desc = "Resume the last yazi session" })
 
 vim.keymap.set("n", "<leader><space>", function()
 	Snacks.picker.smart()
@@ -160,14 +138,3 @@ vim.keymap.set("n", "<leader>nd", function()
 	Snacks.notifier.hide()
 end, { desc = "Dismiss All Notifications" })
 
--- Search and Replace
-vim.keymap.set({ "n", "v", "x" }, "<leader>sr", function()
-	local grug = require("grug-far")
-	local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
-	grug.open({
-		transient = true,
-		prefills = {
-			filesFilter = ext and ext ~= "" and "*." .. ext or nil,
-		},
-	})
-end, { desc = "Search and Replace" })

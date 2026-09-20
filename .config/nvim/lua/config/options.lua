@@ -129,8 +129,6 @@ o.virtualedit = "block" -- Allow cursor beyond end of line in block mode
 o.smoothscroll = true -- Smooth scrolling (if terminal supports it)
 o.termguicolors = true -- Enable 24 bit color
 
-o.lazyredraw = true -- Don't redraw while executing macros. Faster scrolling
-
 -- Characters used to draw UI elements
 opt.fillchars = {
 	foldopen = "",
@@ -173,5 +171,3 @@ vim.diagnostic.config({
 		severity = vim.diagnostic.severity.ERROR,
 	},
 })
-
-

@@ -21,7 +21,7 @@ end, {
 	silent = true,
 })
 
-vim.keymap.set({ "n", "x" }, "<leader>yar", require("features.ai").reference, { desc = "Copy file:line reference" })
+vim.keymap.set({ "n", "x" }, "<leader>yar", require("features.reference").reference, { desc = "Copy file:line reference" })
 
 vim.keymap.set("n", "<leader>yap", function()
 	local path = vim.fn.expand("%:p")
@@ -83,3 +83,11 @@ vim.keymap.set("i", "<C-v>", "<C-r>+", { desc = "Paste from clipboard", noremap 
 -- Toggle case of word
 vim.keymap.set("n", "gu", "g~iw", { noremap = true, desc = "Toggle case of word" })
 vim.keymap.set("x", "gu", "g~", { noremap = true, desc = "Toggle case of selection" })
+
+-- Toggle inlay hints for the current buffer
+vim.keymap.set("n", "<leader>ti", function()
+	local bufnr = vim.api.nvim_get_current_buf()
+	local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+	vim.lsp.inlay_hint.enable(not enabled, { bufnr = bufnr })
+end, { desc = "Toggle inlay hints", noremap = true, silent = true })
+

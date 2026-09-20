@@ -78,14 +78,25 @@ end
 -- BUILTIN COMPONENTS
 ---------------------------------------------------------------------
 
-local function get_project()
-	local root = vim.fs.root(0, {
-		".git",
-		"package.json",
-		"composer.json",
-		"Cargo.toml",
-	})
+local ROOT_MARKERS = { ".git", "package.json", "composer.json", "Cargo.toml" }
 
+local root_cache = {}
+
+local function get_root()
+	local bufnr = vim.api.nvim_get_current_buf()
+	local cached = root_cache[bufnr]
+
+	if cached ~= nil then
+		return cached or nil
+	end
+
+	local root = vim.fs.root(0, ROOT_MARKERS)
+	root_cache[bufnr] = root or false
+
+	return root
+end
+
+local function get_project(root)
 	if not root then
 		return ""
 	end
@@ -93,22 +104,14 @@ local function get_project()
 	return M.hl("Blue", "󰉋 " .. vim.fs.basename(root))
 end
 
-local function get_short_path(depth)
+local function get_short_path(root, depth)
 	local file = vim.api.nvim_buf_get_name(0)
 
 	if file == "" then
 		return ""
 	end
 
-	local root = vim.fs.root(file, {
-		".git",
-		"package.json",
-		"composer.json",
-		"Cargo.toml",
-	})
-
 	if not root then
-		-- return vim.fn.fnamemodify(file, ":f")
 		return " %f"
 	end
 
@@ -138,13 +141,13 @@ local function get_lsp()
 	local primary = clients[1].name
 
 	if #clients == 1 then
-		return M.hl("Teal", " " .. primary)
+		return M.hl("Teal", " " .. primary)
 	end
 
-	return M.hl("Teal", string.format(" %s+%d", primary, #clients - 1))
+	return M.hl("Teal", string.format(" %s+%d", primary, #clients - 1))
 end
 
-local function combine(parts)
+local function combine(parts, sep)
 	local result = {}
 
 	for _, item in ipairs(parts) do
@@ -153,7 +156,7 @@ local function combine(parts)
 		end
 	end
 
-	return table.concat(result, "  ")
+	return table.concat(result, sep or "  ")
 end
 
 ---------------------------------------------------------------------
@@ -161,10 +164,11 @@ end
 ---------------------------------------------------------------------
 
 function M.render()
+	local root = get_root()
+
 	local left = combine({
-		get_project(),
-		M.hl("Fg", "󰈙 " .. get_short_path(3)),
-		-- M.hl("Fg", "󰈙 %f"),
+		get_project(root),
+		M.hl("Fg", "󰈙 " .. get_short_path(root, 3)),
 		M.hl("Red", "%m%r"),
 		vim.diagnostic.status(),
 		vim.ui.progress_status(),
@@ -178,17 +182,12 @@ function M.render()
 		M.hl("Cyan", "%P"),
 	})
 
-	return table.concat({
+	return combine({
 		render_section(M.sections.left),
-
 		left,
-
 		render_section(M.sections.center_left),
-
 		"%=",
-
 		render_section(M.sections.right),
-
 		right,
 	}, " ")
 end
@@ -206,17 +205,28 @@ function M.setup()
 
 	local group = vim.api.nvim_create_augroup("StatuslineRefresh", { clear = true })
 
-	vim.api.nvim_create_autocmd({
-		"BufEnter",
-		"ModeChanged",
-		"DiagnosticChanged",
-		"LspAttach",
-		"ColorScheme",
-	}, {
+	-- highlight groups only need recomputing when the colorscheme changes
+	vim.api.nvim_create_autocmd("ColorScheme", {
 		group = group,
 		callback = function()
 			M.setup_hl()
 			vim.cmd.redrawstatus()
+		end,
+	})
+
+	-- everything else just needs a redraw, not a highlight rebuild
+	vim.api.nvim_create_autocmd({ "BufEnter", "ModeChanged", "DiagnosticChanged", "LspAttach" }, {
+		group = group,
+		callback = function()
+			vim.cmd.redrawstatus()
+		end,
+	})
+
+	-- keep the root cache from growing unbounded / going stale
+	vim.api.nvim_create_autocmd({ "BufDelete", "BufWipeout", "BufFilePost" }, {
+		group = group,
+		callback = function(args)
+			root_cache[args.buf] = nil
 		end,
 	})
 end
