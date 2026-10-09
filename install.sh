@@ -34,7 +34,7 @@ PACMAN_PACKAGES=(
   yazi jq resvg fd imagemagick poppler ouch
 
   # Dev
-  neovim zed tree-sitter-cli opencode npm pnpm nix rustup mise
+  neovim zed tree-sitter-cli opencode npm pnpm nix rustup mise git-delta
 
 )
 
