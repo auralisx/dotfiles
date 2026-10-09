@@ -79,6 +79,7 @@ binds {
     Mod+Semicolon hotkey-overlay-title="<b>Run an Application: </b> Noctalia App Launcher" { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
     // Mod+Shift+Ctrl+L hotkey-overlay-title="<b>Lock Screen: </b> Hyprlock" allow-when-locked=true { spawn "hyprlock"; }
     Mod+Shift+Ctrl+L hotkey-overlay-title="<b>Lock Screen: </b> Noctalia Lock" allow-when-locked=true { spawn "noctalia" "msg" "session" "lock"; }
+    Mod+Shift+Ctrl+I hotkey-overlay-title="<b>Toggle Idle Behavior: </b> Noctalia Caffeine" allow-when-locked=true { spawn "noctalia" "msg" "caffeine-toggle"; }
 
     Mod+Alt+D hotkey-overlay-title="<b>Edit Dotfiles: </b> ~/dotfiles/" { spawn-sh "zeditor ~/dotfiles/"; }
     Mod+Alt+Menu hotkey-overlay-title="<b>Launch Project:</b> Zeditor" {
