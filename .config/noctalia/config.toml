@@ -27,24 +27,6 @@ sidebar_section = "full"
     [control_center.calendar]
     show_events_card = false
 
-    [[control_center.shortcuts]]
-    type = "wifi"
-
-    [[control_center.shortcuts]]
-    type = "bluetooth"
-
-    [[control_center.shortcuts]]
-    type = "caffeine"
-
-    [[control_center.shortcuts]]
-    type = "notification"
-
-    [[control_center.shortcuts]]
-    type = "mic_mute"
-
-    [[control_center.shortcuts]]
-    type = "nightlight"
-
 [desktop_widgets]
 enabled = false
 schema_version = 2
@@ -78,6 +60,11 @@ behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
 [keybinds]
 down = [ "Down", "Ctrl+n" ]
 up = [ "Up", "Ctrl+p" ]
+
+[lockscreen]
+edge_smoothness = 0.29999999329447746
+transition = [ "zoom" ]
+transition_duration = 500
 
 [lockscreen_widgets]
 enabled = true
