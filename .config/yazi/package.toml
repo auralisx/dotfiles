@@ -1,7 +1,7 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "58c4f4e"
-hash = "5bb0bfab901d3601c370eafdd66edd31"
+rev = "6229767"
+hash = "347cc6b190eb0c2fd60513cc7ae37412"
 
 [[plugin.deps]]
 use = "atareao/convert"
