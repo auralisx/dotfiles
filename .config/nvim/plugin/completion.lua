@@ -7,8 +7,7 @@ vim.pack.add({
 	"https://github.com/rachartier/tiny-code-action.nvim",
 })
 
-local cmp = require("blink.cmp")
-cmp.build():pwait()
+require("blink.cmp").build():pwait()
 
 vim.schedule(function()
 	require("blink.cmp").setup({
@@ -17,11 +16,17 @@ vim.schedule(function()
 			["<Tab>"] = { "accept", "fallback" },
 		},
 		completion = {
+			ghost_text = {
+				enabled = true,
+			},
 			menu = {
 				auto_show = true,
 				draw = {
 					treesitter = { "lsp" },
-					columns = { { "kind_icon", "label", "label_description", gap = 1 }, { "kind" } },
+					columns = {
+						{ "label", "label_description", gap = 1 },
+						{ "kind_icon", "kind" },
+					},
 				},
 			},
 			documentation = { auto_show = true },
