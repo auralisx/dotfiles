@@ -1,9 +1,11 @@
 #!/bin/bash
 
 set -euo pipefail
+
 IFS=$'\n\t'
 
 DOTFILES_DIR="$HOME/dotfiles"
+
 BACKUP_DIR="$HOME/.config-backup-$(date +%Y%m%d%H%M%S)"
 
 # ───────────────────────────────────────────────────────────
@@ -14,28 +16,27 @@ PACMAN_PACKAGES=(
   # Desktop Env (Wayland)
   niri xdg-desktop-portal-gtk xdg-desktop-portal-gnome polkit-gnome gnome-keyring gvfs-mtp xwayland-satellite
 
-  # hypridle hyprlock fuzzel waybar swaync blueman network-manager-applet brightnessctl awww
-  # Above packages are replaced by Noctalia
-
-  # Desktop Utilities
-  noctalia reflector wl-clipboard copyq satty bluez bluez-utils networkmanager swayimg adw-gtk-theme
+  # Desktop Utilities (Noctalia replaces waybar/fuzzel/swaync/hypridle/etc.)
+  noctalia reflector wl-clipboard copyq satty swayimg adw-gtk-theme
 
   # Audio
-  pipewire pipewire-alsa pipewire-jack pipewire-pulse pipewire-zeroconf wireplumber pavucontrol sof-firmware
+  pavucontrol sof-firmware
 
   # Fonts
-  ttf-firacode-nerd woff2-font-awesome noto-fonts-emoji
+  ttf-firacode-nerd
 
   # Desktop packages and utilities
-  firefox-developer-edition vivaldi chromium snapper btrfs-assistant snap-pac mpv tlp iptables-nft ufw hyprpicker obs-studio pacman-contrib
+  firefox-developer-edition vivaldi chromium mpv hyprpicker obs-studio pacman-contrib rsync
+
+  # Snapshot
+  btrfs-assistant snap-pac
 
   # Terminal and Shell
   ghostty fish eza fzf ripgrep zoxide starship lazygit zellij bat bottom ast-grep
   yazi jq resvg fd imagemagick poppler ouch
 
-  # Dev
-  neovim zed tree-sitter-cli opencode npm pnpm nix rustup mise git-delta
-
+  # Dev (languages/runtimes come from mise and nix)
+  neovim zed tree-sitter-cli opencode nix mise git-delta
 )
 
 # ───────────────────────────────────────────────────────────
@@ -46,13 +47,10 @@ CONFIGS=(
   fish
   fuzzel
   ghostty
-  # hypr
   niri
   noctalia
   nvim
-  # swaync
   systemd
-  # waybar
   xdg-desktop-portal
   yazi
   zellij
@@ -65,21 +63,12 @@ HOME_FILES=(
 )
 
 SYSTEM_SERVICES=(
-  bluetooth.service
-  systemd-boot-update.service
+  # systemd-boot-update.service
   paccache.timer
   reflector.timer
-  fstrim.timer
-  tlp.service
-  snapper-cleanup.timer
-  snapper-timeline.timer
-  ufw.service
-)
-
-NPM_PACKAGES=(
-)
-
-CARGO_PACKAGES=(
+  # tlp.service
+  # snapper-cleanup.timer
+  # snapper-timeline.timer
 )
 
 info() {
@@ -92,12 +81,10 @@ info() {
 
 install_packages() {
   info "Installing pacman packages..."
-
   sudo pacman -Syu --needed "${PACMAN_PACKAGES[@]}"
 }
 
 backup_and_link() {
-
   local src="$1"
   local dst="$2"
 
@@ -105,7 +92,6 @@ backup_and_link() {
 
   if [[ -e "$dst" || -L "$dst" ]]; then
     mkdir -p "$BACKUP_DIR"
-
     mv "$dst" "$BACKUP_DIR/"
   fi
 
@@ -113,7 +99,6 @@ backup_and_link() {
 }
 
 setup_dotfiles() {
-
   info "Linking dotfiles..."
 
   for item in "${CONFIGS[@]}"; do
@@ -130,39 +115,55 @@ setup_dotfiles() {
 }
 
 enable_services() {
-
   info "Enabling services..."
 
   for svc in "${SYSTEM_SERVICES[@]}"; do
-
     sudo systemctl enable --now "$svc"
-
   done
 }
 
-install_npm_packages() {
+# Snapper config for root. If /.snapshots is already a mounted subvolume
+# (e.g. @snapshots from fstab), swap it for snapper's own before creating
+# the config, then remount it.
+setup_snapper() {
+  [[ "$(findmnt -no FSTYPE /)" == "btrfs" ]] || return 0
+  sudo snapper list-configs | grep -qw root && return 0
 
-  ((${#NPM_PACKAGES[@]})) || return
+  info "Configuring snapper..."
 
-  info "Installing global npm packages..."
+  if findmnt -n /.snapshots >/dev/null; then
+    sudo umount /.snapshots
+    sudo rmdir /.snapshots
+    sudo snapper -c root create-config /
+    sudo btrfs subvolume delete /.snapshots
+    sudo mkdir /.snapshots
+    sudo mount -a
+  else
+    sudo snapper -c root create-config /
+  fi
 
-  npm install -g "${NPM_PACKAGES[@]}"
+  sudo chmod 750 /.snapshots
+
+  sudo snapper -c root set-config \
+    TIMELINE_LIMIT_HOURLY=5 \
+    TIMELINE_LIMIT_DAILY=7 \
+    TIMELINE_LIMIT_WEEKLY=0 \
+    TIMELINE_LIMIT_MONTHLY=0 \
+    TIMELINE_LIMIT_YEARLY=0
 }
 
-install_cargo_packages() {
+# ───────────────────────────────────────────────────────────
+# Run
+# ───────────────────────────────────────────────────────────
 
-  ((${#CARGO_PACKAGES[@]})) || return
-
-  info "Installing cargo packages..."
-
-  cargo install "${CARGO_PACKAGES[@]}"
+[[ -d "$DOTFILES_DIR" ]] || {
+  echo "Clone dotfiles to $DOTFILES_DIR first." >&2
+  exit 1
 }
 
 install_packages
 setup_dotfiles
 enable_services
+setup_snapper
 
-# install_npm_packages
-# install_cargo_packages
-
-info "Setup complete"
+info "Setup complete."
